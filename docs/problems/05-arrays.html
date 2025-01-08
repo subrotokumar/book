@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Arrays - Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="submit-the-following-on-your-leetcode-profile-itself"><a class="header" href="#submit-the-following-on-your-leetcode-profile-itself">Submit the following on your Leetcode profile itself.</a></h2>
+<h3 id="easy"><a class="header" href="#easy">Easy</a></h3>
+<ol>
+<li><a href="https://leetcode.com/problems/build-array-from-permutation/">Build Array from Permutation</a></li>
+<li><a href="https://leetcode.com/problems/concatenation-of-array/">Concatenation of Array</a></li>
+<li><a href="https://leetcode.com/problems/running-sum-of-1d-array/">Running Sum of 1d Array</a></li>
+<li><a href="https://leetcode.com/problems/richest-customer-wealth/">Richest Customer Wealth</a></li>
+<li><a href="https://leetcode.com/problems/shuffle-the-array/">Shuffle the Array</a></li>
+<li><a href="https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/">Kids With the Greatest Number of Candies</a></li>
+<li><a href="https://leetcode.com/problems/number-of-good-pairs/">Number of Good Pairs</a></li>
+<li><a href="https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/">How Many Numbers Are Smaller Than the Current Number</a></li>
+<li><a href="https://leetcode.com/problems/create-target-array-in-the-given-order/">Create Target Array in the Given Order</a></li>
+<li><a href="https://leetcode.com/problems/check-if-the-sentence-is-pangram/">Check if the Sentence Is Pangram</a></li>
+<li><a href="https://leetcode.com/problems/count-items-matching-a-rule/">Count Items Matching a Rule</a></li>
+<li><a href="https://leetcode.com/problems/find-the-highest-altitude/">Find the Highest Altitude</a></li>
+<li><a href="https://leetcode.com/problems/flipping-an-image/">Flipping an Image</a></li>
+<li><a href="https://leetcode.com/problems/cells-with-odd-values-in-a-matrix/">Cells with Odd Values in a Matrix</a></li>
+<li><a href="https://leetcode.com/problems/matrix-diagonal-sum/">Matrix Diagonal Sum</a></li>
+<li><a href="https://leetcode.com/problems/find-numbers-with-even-number-of-digits/">Find Numbers with Even Number of Digits</a></li>
+<li><a href="https://leetcode.com/problems/transpose-matrix/">Transpose Matrix</a></li>
+<li><a href="https://leetcode.com/problems/add-to-array-form-of-integer/">Add to Array-Form of Integer</a></li>
+<li><a href="https://leetcode.com/problems/maximum-population-year/">Maximum Population Year</a></li>
+<li><a href="https://leetcode.com/problems/determine-whether-matrix-can-be-obtained-by-rotation/">Determine Whether Matrix Can Be Obtained By Rotation</a></li>
+<li><a href="https://leetcode.com/problems/two-sum/">Two Sum</a></li>
+<li><a href="https://leetcode.com/problems/find-n-unique-integers-sum-up-to-zero/">Find N Unique Integers Sum up to Zero</a></li>
+<li><a href="https://leetcode.com/problems/lucky-numbers-in-a-matrix/">Lucky Number In a Matrix</a></li>
+<li><a href="https://leetcode.com/problems/maximum-subarray/">Maximum Subarray</a></li>
+<li><a href="https://leetcode.com/problems/reshape-the-matrix/">Reshape the Matrix</a></li>
+<li><a href="https://leetcode.com/problems/plus-one/">Plus One</a></li>
+<li><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/">Remove Duplicates from Sorted Array</a></li>
+<li><a href="https://leetcode.com/problems/minimum-cost-to-move-chips-to-the-same-position/">Minimum Cost to Move Chips to The Same Position</a></li>
+</ol>
+<h3 id="medium"><a class="header" href="#medium">Medium</a></h3>
+<ol>
+<li><a href="https://leetcode.com/problems/spiral-matrix/">Spiral Matrix</a></li>
+<li><a href="https://leetcode.com/problems/spiral-matrix-ii/">Spiral Matrix II</a></li>
+<li><a href="https://leetcode.com/problems/spiral-matrix-iii/">Spiral Matrix III</a></li>
+<li><a href="https://leetcode.com/problems/set-matrix-zeroes/">Set Matrix Zeroes</a></li>
+<li><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self</a></li>
+<li><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">Find First and Last Position of Element in Sorted Array</a></li>
+<li><a href="https://leetcode.com/problems/jump-game/">Jump Game</a></li>
+<li><a href="https://leetcode.com/problems/rotate-array/">Rotate Array</a></li>
+<li><a href="https://leetcode.com/problems/sort-colors/">Sort Colors</a></li>
+<li><a href="https://leetcode.com/problems/house-robber/">House Robber</a></li>
+</ol>
+<h3 id="hard"><a class="header" href="#hard">Hard</a></h3>
+<ol>
+<li><a href="https://leetcode.com/problems/max-value-of-equation/">Max Value of Equation</a></li>
+<li><a href="https://leetcode.com/problems/first-missing-positive/">First Missing Positive</a></li>
+<li><a href="https://leetcode.com/problems/check-if-it-is-a-good-array/">Good Array</a></li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../problems/04-functions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../problems/06-searching.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../problems/04-functions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../problems/06-searching.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../mermaid.min.js"></script>
+        <script src="../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>

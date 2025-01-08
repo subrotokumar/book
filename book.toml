@@ -1,0 +1,16 @@
+[book]
+authors = ["Subroto Kumar"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Book"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[dependency]
+mdbook = "0.4.43"
+mdbook-mermaid = "0.14.1"

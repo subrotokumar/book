@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Trees - Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="problems"><a class="header" href="#problems">Problems</a></h1>
+<h2 id="easy"><a class="header" href="#easy">Easy</a></h2>
+<ul>
+<li><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">Binary Tree Inorder Traversal</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/same-tree/">Same Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/symmetric-tree/">Symmetric Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Maximum Depth of Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/">Convert Sorted Array to Binary Search Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/balanced-binary-tree/">Balanced Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/">Minimum Depth of Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/path-sum/">Path Sum</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">Binary Tree Preorder Traversal</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/">Binary Tree Postorder Traversal</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/invert-binary-tree/">Invert Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/binary-tree-paths/">Binary Tree Paths</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/sum-of-left-leaves/">Sum of Left Leaves</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/find-mode-in-binary-search-tree/">Find Mode in Binary Search Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/minimum-absolute-difference-in-bst/">Minimum Absolute Difference in BST</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/diameter-of-binary-tree/">Diameter of Binary Tree</a> <code>leetcode</code></li>
+</ul>
+<h2 id="medium"><a class="header" href="#medium">Medium</a></h2>
+<ul>
+<li><a href="https://leetcode.com/problems/validate-binary-search-tree/">Validate Binary Search Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/">All Nodes Distance K in Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/validate-binary-tree-nodes/">Validate Binary Tree Nodes</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/longest-univalue-path/">Longest Univalue Path</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree/">Closest Nodes Queries in a Binary Search Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/maximum-width-of-binary-tree/">Maximum Width of Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/linked-list-in-binary-tree/">Linked List in Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/operations-on-tree/">Operations on Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/">Verify Preorder Serialization of a Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/kth-largest-sum-in-a-binary-tree/">Kth Largest Sum in a Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/count-nodes-with-the-highest-score/">Count Nodes With the Highest Score</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/path-sum-iii/">Path Sum III</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/">Maximum Product of Splitted Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/most-profitable-path-in-a-tree/">Most Profitable Path in a Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/">Step-By-Step Directions From a Binary Tree Node to Another</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/">Logical OR of Two Binary Grids Represented as Quad-Trees</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/flip-binary-tree-to-match-preorder-traversal/">Flip Binary Tree To Match Preorder Traversal</a> <code>leetcode</code></li>
+</ul>
+<h2 id="hard"><a class="header" href="#hard">Hard</a></h2>
+<ul>
+<li><a href="https://leetcode.com/problems/kth-ancestor-of-a-tree-node/">Kth Ancestor of a Tree Node</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/difference-between-maximum-and-minimum-price-sum/">Difference Between Maximum and Minimum Price Sum</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/merge-bsts-to-create-single-bst/">Merge BSTs to Create Single BST</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/frog-position-after-t-seconds/">Frog Position After T Seconds</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/height-of-binary-tree-after-subtree-removal-queries/">Height of Binary Tree After Subtree Removal Queries</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/collect-coins-in-a-tree/">Collect Coins in a Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">Binary Tree Maximum Path Sum</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/tree-of-coprimes/">Tree of Coprimes</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/maximum-sum-bst-in-binary-tree/">Maximum Sum BST in Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/minimize-the-total-price-of-the-trips/">Minimize the Total Price of the Trips</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/number-of-ways-to-reconstruct-a-tree/">Number Of Ways To Reconstruct A Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/smallest-missing-genetic-value-in-each-subtree/">Smallest Missing Genetic Value in Each Subtree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/">Vertical Order Traversal of a Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/binary-tree-cameras/">Binary Tree Cameras</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/">Number of Ways to Reorder Array to Get Same BST</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/count-number-of-possible-root-nodes/">Count Number of Possible Root Nodes</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony/">Count Ways to Build Rooms in an Ant Colony</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/minimum-score-after-removals-on-a-tree/">Minimum Score After Removals on a Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/create-components-with-same-value/">Create Components With Same Value</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize and Deserialize Binary Tree</a> <code>leetcode</code></li>
+<li><a href="https://leetcode.com/problems/longest-path-with-different-adjacent-characters/">Longest Path With Different Adjacent Characters</a> <code>leetcode</code></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../problems/16-stack-queue.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../problems/18-heaps.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../problems/16-stack-queue.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../problems/18-heaps.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../mermaid.min.js"></script>
+        <script src="../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>
