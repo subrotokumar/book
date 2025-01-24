@@ -1,0 +1,325 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Group Anagrams - Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
+<p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example 1:</a></h3>
+<pre><code>Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]  
+</code></pre>
+<p>Explanation:</p>
+<p>There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.</p>
+<h3 id="example-2"><a class="header" href="#example-2">Example 2:</a></h3>
+<pre><code>Input: strs = [""]
+Output: [[""]]
+</code></pre>
+<h3 id="example-3"><a class="header" href="#example-3">Example 3:</a></h3>
+<pre><code>Input: strs = ["a"]
+Output: [["a"]]
+</code></pre>
+<h2 id="constraints"><a class="header" href="#constraints">Constraints:</a></h2>
+<p>1 &lt;= strs.length &lt;= 104<br />
+0 &lt;= strs[i].length &lt;= 100<br />
+strs[i] consists of lowercase English letters.</p>
+<hr />
+<h3 id="approach-1-group-anagrams-by-sorting"><a class="header" href="#approach-1-group-anagrams-by-sorting">Approach 1: Group Anagrams by Sorting</a></h3>
+<p>Given a list of strings <code>strs = ["eat", "tea", "tan", "ate", "nat", "bat"]</code>, the goal is to group the anagrams together. Here's the step-by-step approach:</p>
+<ol>
+<li>
+<p><strong>Sort Each String:</strong><br />
+For every string in the input list, sort its characters alphabetically. This ensures that anagrams will result in the same sorted string.</p>
+<p>Example:</p>
+<pre><code>strs =        ["eat", "tea", "tan", "ate", "nat", "bat"]
+sorted_strs = ["aet", "aet", "ant", "aet", "ant", "abt"]
+</code></pre>
+</li>
+<li>
+<p><strong>Group by Sorted Strings:</strong><br />
+Use a hashmap (dictionary) where the key is the sorted string, and the value is a list of strings that match that sorted string. Iterate through the <code>strs</code> list and group the original strings based on their sorted form.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × KLogK)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Sorting each string takes <strong>O(KLogK)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<h3 id="approach-2-group-anagrams-using-character-counts"><a class="header" href="#approach-2-group-anagrams-using-character-counts">Approach 2: Group Anagrams Using Character Counts</a></h3>
+<p>Instead of sorting each string, we can use the frequency of each character as the key to group anagrams. Here's how it works:</p>
+<ol>
+<li>
+<p><strong>Count Character Frequencies:</strong><br />
+For each string in the input list, create a frequency count of its characters. Use a tuple of 26 integers (for each letter 'a' to 'z') to represent the frequency.</p>
+</li>
+<li>
+<p><strong>Group by Frequency Keys:</strong><br />
+Use a hashmap (dictionary) where the key is the character frequency tuple, and the value is a list of strings that match that frequency.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis-1"><a class="header" href="#complexity-analysis-1">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Counting characters takes <strong>O(K)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<p>This approach is often faster than sorting-based grouping for longer strings, as it avoids the overhead of sorting.</p>
+<pre><code class="language-java">class Solution {
+    private String getCharacterCountString(String str) {
+        int[] count = new int[26];
+        for (char ch : str.toCharArray()) {
+            count[ch - 'a'] = count[ch - 'a'] + 1;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int item : count) {
+            sb.append("#");
+            sb.append(item);
+        }
+        return sb.toString();
+    }
+
+    public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) {
+        if (strs.length == 0) {
+            return new ArrayList();
+        }
+        Map&lt;String, List&lt;String&gt;&gt; ansMap = new HashMap&lt;&gt;();
+
+        for (String str : strs) {
+            String countString = getCharacterCountString(str);
+            if (!ansMap.containsKey(countString)) {
+                ansMap.put(countString, new ArrayList());
+            }
+            ansMap.get(countString).add(str);
+        }
+
+        return new ArrayList(ansMap.values());
+    }
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../problems/18-heaps.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../problems/18-heaps.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>

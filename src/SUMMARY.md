@@ -20,6 +20,21 @@
   17. [Trees](./problems/17-trees.md)
   18. [Heaps](./problems/18-heaps.md)
 
+---
+
+- [Cretia]()
+  - [Contains Duplicate]()
+  - [Valid Anagram]()
+  - [Two Sum]()
+  - [Group Anagrams](./neetcode_150/array_and_hashing/group-anagram.md)
+  - [Top K Frequent Elements](./neetcode_150/array_and_hashing/top-k-frequent-elements.md)
+  - [Encode and Decode Strings]()
+  - [Product of Array Except Self](./neetcode_150/array_and_hashing/product-of-array-except-self.md)
+  - [Valid Sudoku]()
+  - [Longest Consecutive Sequence]()
+
+---
+
 - [Greedy Algorithm](./greedy_algorithm/README.md)
   - [Shortest Job First (or SJF) CPU Scheduling](./greedy_algorithm/03-shortest-jpb-first.md)
   - [Jump Game - I](./greedy_algorithm/04-jump-game-1.md)

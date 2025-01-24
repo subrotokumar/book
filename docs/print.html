@@ -155,24 +155,24 @@
                     <main>
                         <h1 id="index-of-topics"><a class="header" href="#index-of-topics">Index of Topics</a></h1>
 <ol>
-<li><a href="problems/./01-flow-of-program.html">Flow of Program</a></li>
-<li><a href="problems/./02-first-java.html">First Java Program</a></li>
-<li><a href="problems/./03-conditionals-loops.html">Conditionals and Loops</a></li>
-<li><a href="problems/./04-functions.html">Functions</a></li>
-<li><a href="problems/./05-arrays.html">Arrays</a></li>
-<li><a href="problems/./06-searching.html">Searching</a></li>
-<li><a href="problems/./07-sorting.html">Sorting</a></li>
-<li><a href="problems/./08-strings.html">Strings</a></li>
-<li><a href="problems/./09-patterns.html">Patterns</a></li>
-<li><a href="problems/./10-recursion.html">Recursion</a></li>
-<li><a href="problems/./11-bitwise.html">Bitwise Operations</a></li>
-<li><a href="problems/./12-math.html">Math</a></li>
-<li><a href="problems/./13-complexities.html">Time and Space Complexities</a></li>
-<li><a href="problems/./14-oop.html">Object-Oriented Programming (./OOP)</a></li>
-<li><a href="problems/./15-linkedlist.html">Linked List</a></li>
-<li><a href="problems/./16-stack-queue.html">Stack and Queue</a></li>
-<li><a href="problems/./17-trees.html">Trees</a></li>
-<li><a href="problems/./18-heaps.html">Heaps</a></li>
+<li><a href="problems//problems/01-flow-of-program.html">Flow of Program</a></li>
+<li><a href="problems//problems/02-first-java.html">First Java Program</a></li>
+<li><a href="problems//problems/03-conditionals-loops.html">Conditionals and Loops</a></li>
+<li><a href="problems//problems/04-functions.html">Functions</a></li>
+<li><a href="problems//problems/05-arrays.html">Arrays</a></li>
+<li><a href="problems//problems/06-searching.html">Searching</a></li>
+<li><a href="problems//problems/07-sorting.html">Sorting</a></li>
+<li><a href="problems//problems/08-strings.html">Strings</a></li>
+<li><a href="problems//problems/09-patterns.html">Patterns</a></li>
+<li><a href="problems//problems/10-recursion.html">Recursion</a></li>
+<li><a href="problems//problems/11-bitwise.html">Bitwise Operations</a></li>
+<li><a href="problems//problems/12-math.html">Math</a></li>
+<li><a href="problems//problems/13-complexities.html">Time and Space Complexities</a></li>
+<li><a href="problems//problems/14-oop.html">Object-Oriented Programming (/problems/OOP)</a></li>
+<li><a href="problems//problems/15-linkedlist.html">Linked List</a></li>
+<li><a href="problems//problems/16-stack-queue.html">Stack and Queue</a></li>
+<li><a href="problems//problems/17-trees.html">Trees</a></li>
+<li><a href="problems//problems/18-heaps.html">Heaps</a></li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="create-flowchart-and-pseudocode-for-the-following"><a class="header" href="#create-flowchart-and-pseudocode-for-the-following">Create flowchart and pseudocode for the following:</a></h2>
 <ol>
@@ -1025,7 +1025,7 @@ Also,
 </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="important-topics"><a class="header" href="#important-topics">Important Topics</a></h1>
 <ul>
-<li><a href="https://github.com/kunal-kushwaha/DSA-Bootcamp-Java/tree/main/lectures/17-oop/notes">Kunal's notes</a></li>
+<li><a href="https://github.com/kunal-kushwaha/DSA-Bootcamp-Java/tree/main/lectures/17-oop/notes">Notes</a></li>
 <li><a href="https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-java/">Object Oriented Paradigms</a> <code>GFG</code></li>
 <li><a href="https://www.geeksforgeeks.org/constructors-in-java/">Constructors in Java</a> <code>GFG</code></li>
 <li><a href="https://www.geeksforgeeks.org/constructor-chaining-java-examples/">Constructor chaining in Java</a> <code>GFG</code></li>
@@ -1233,7 +1233,160 @@ Also,
 <li><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize and Deserialize Binary Tree</a> <code>leetcode</code></li>
 <li><a href="https://leetcode.com/problems/longest-path-with-different-adjacent-characters/">Longest Path With Different Adjacent Characters</a> <code>leetcode</code></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="greedy-algorithm"><a class="header" href="#greedy-algorithm">Greedy Algorithm</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
+<p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example 1:</a></h3>
+<pre><code>Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]  
+</code></pre>
+<p>Explanation:</p>
+<p>There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.</p>
+<h3 id="example-2"><a class="header" href="#example-2">Example 2:</a></h3>
+<pre><code>Input: strs = [""]
+Output: [[""]]
+</code></pre>
+<h3 id="example-3"><a class="header" href="#example-3">Example 3:</a></h3>
+<pre><code>Input: strs = ["a"]
+Output: [["a"]]
+</code></pre>
+<h2 id="constraints"><a class="header" href="#constraints">Constraints:</a></h2>
+<p>1 &lt;= strs.length &lt;= 104<br />
+0 &lt;= strs[i].length &lt;= 100<br />
+strs[i] consists of lowercase English letters.</p>
+<hr />
+<h3 id="approach-1-group-anagrams-by-sorting"><a class="header" href="#approach-1-group-anagrams-by-sorting">Approach 1: Group Anagrams by Sorting</a></h3>
+<p>Given a list of strings <code>strs = ["eat", "tea", "tan", "ate", "nat", "bat"]</code>, the goal is to group the anagrams together. Here's the step-by-step approach:</p>
+<ol>
+<li>
+<p><strong>Sort Each String:</strong><br />
+For every string in the input list, sort its characters alphabetically. This ensures that anagrams will result in the same sorted string.</p>
+<p>Example:</p>
+<pre><code>strs =        ["eat", "tea", "tan", "ate", "nat", "bat"]
+sorted_strs = ["aet", "aet", "ant", "aet", "ant", "abt"]
+</code></pre>
+</li>
+<li>
+<p><strong>Group by Sorted Strings:</strong><br />
+Use a hashmap (dictionary) where the key is the sorted string, and the value is a list of strings that match that sorted string. Iterate through the <code>strs</code> list and group the original strings based on their sorted form.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × KLogK)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Sorting each string takes <strong>O(KLogK)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<h3 id="approach-2-group-anagrams-using-character-counts"><a class="header" href="#approach-2-group-anagrams-using-character-counts">Approach 2: Group Anagrams Using Character Counts</a></h3>
+<p>Instead of sorting each string, we can use the frequency of each character as the key to group anagrams. Here's how it works:</p>
+<ol>
+<li>
+<p><strong>Count Character Frequencies:</strong><br />
+For each string in the input list, create a frequency count of its characters. Use a tuple of 26 integers (for each letter 'a' to 'z') to represent the frequency.</p>
+</li>
+<li>
+<p><strong>Group by Frequency Keys:</strong><br />
+Use a hashmap (dictionary) where the key is the character frequency tuple, and the value is a list of strings that match that frequency.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis-1"><a class="header" href="#complexity-analysis-1">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Counting characters takes <strong>O(K)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<p>This approach is often faster than sorting-based grouping for longer strings, as it avoids the overhead of sorting.</p>
+<pre><code class="language-java">class Solution {
+    private String getCharacterCountString(String str) {
+        int[] count = new int[26];
+        for (char ch : str.toCharArray()) {
+            count[ch - 'a'] = count[ch - 'a'] + 1;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int item : count) {
+            sb.append("#");
+            sb.append(item);
+        }
+        return sb.toString();
+    }
+
+    public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) {
+        if (strs.length == 0) {
+            return new ArrayList();
+        }
+        Map&lt;String, List&lt;String&gt;&gt; ansMap = new HashMap&lt;&gt;();
+
+        for (String str : strs) {
+            String countString = getCharacterCountString(str);
+            if (!ansMap.containsKey(countString)) {
+                ansMap.put(countString, new ArrayList());
+            }
+            ansMap.get(countString).add(str);
+        }
+
+        return new ArrayList(ansMap.values());
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="top-k-frequent-elements-"><a class="header" href="#top-k-frequent-elements-"><a href="https://leetcode.com/problems/top-k-frequent-elements/description/">Top K Frequent Elements</a> 💛</a></h1>
+<p>Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.</p>
+<p>Example 1:</p>
+<pre><code>Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: nums = [1], k = 1
+Output: [1]
+</code></pre>
+<h3 id="constraints-1"><a class="header" href="#constraints-1">Constraints:</a></h3>
+<p>1 &lt;= nums.length &lt;= 105<br />
+-104 &lt;= nums[i] &lt;= 104<br />
+k is in the range [1, the number of unique elements in the array].<br />
+It is guaranteed that the answer is unique.</p>
+<p>Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.</p>
+<hr />
+<h3 id="approach-1-store-occurence-in-hashmap-and-then-sort-it"><a class="header" href="#approach-1-store-occurence-in-hashmap-and-then-sort-it">Approach 1: Store occurence in hashmap and then sort it</a></h3>
+<h3 id="approach-2-hashmap--priority-queue"><a class="header" href="#approach-2-hashmap--priority-queue">Approach 2: HashMap + Priority Queue</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="product-of-array-except-self-"><a class="header" href="#product-of-array-except-self-"><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self</a> 💛</a></h1>
+<p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
+<p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
+<p>You must write an algorithm that runs in O(n) time and without using the division operation.</p>
+<p>Example 1:</p>
+<pre><code>Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
+</code></pre>
+<h3 id="constraints-2"><a class="header" href="#constraints-2">Constraints:</a></h3>
+<p>2 &lt;= nums.length &lt;= 105<br />
+-30 &lt;= nums[i] &lt;= 30<br />
+The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.</p>
+<p>Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="greedy-algorithm"><a class="header" href="#greedy-algorithm">Greedy Algorithm</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="shortest-job-first-or-sjf-cpu-scheduling"><a class="header" href="#shortest-job-first-or-sjf-cpu-scheduling">Shortest Job First (or SJF) CPU Scheduling</a></h1>
 <p>The shortest job first (SJF) or shortest job next, is a scheduling policy that selects the waiting process with the smallest execution time to execute next.</p>
 <p>Given an array of integers bt of size n. Array bt denotes the burst time of each process. Calculate the average waiting time of all the processes and return the nearest integer which is smaller or equal to the output.</p>
