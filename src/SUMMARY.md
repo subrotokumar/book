@@ -25,13 +25,18 @@
 - [Cretia]()
   - [Contains Duplicate]()
   - [Valid Anagram]()
-  - [Two Sum]()
+  - [Two Sum](./neetcode_150/array_and_hashing/two_sum.md)
   - [Group Anagrams](./neetcode_150/array_and_hashing/group-anagram.md)
   - [Top K Frequent Elements](./neetcode_150/array_and_hashing/top-k-frequent-elements.md)
-  - [Encode and Decode Strings]()
+  - [Encode and Decode Strings](./neetcode_150/array_and_hashing/encode_and_decode_strings.md)
   - [Product of Array Except Self](./neetcode_150/array_and_hashing/product-of-array-except-self.md)
-  - [Valid Sudoku]()
-  - [Longest Consecutive Sequence]()
+  - [Valid Sudoku](./neetcode_150/array_and_hashing/valid_sudoku.md)
+  - [Longest Consecutive Sequence](./neetcode_150/array_and_hashing/longest_consecutive_sequence.md)
+  - [Valid Palindrome](./neetcode_150/two_pointers/valid_palindrome.md)
+  - [Two Sum II Input Array Is Sorted](./neetcode_150/two_pointers/two_sum_II_input_array_s-sorted.md)
+  - [3Sum](./neetcode_150/two_pointers/3sum.md)
+  - [Container With Most Water](./neetcode_150/two_pointers/container_with_most_water.md)
+  - [Trapping Rain Water](./neetcode_150/two_pointers/trapping_rain_water.md)
 
 ---
 

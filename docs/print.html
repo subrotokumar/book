@@ -1233,9 +1233,128 @@ Also,
 <li><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize and Deserialize Binary Tree</a> <code>leetcode</code></li>
 <li><a href="https://leetcode.com/problems/longest-path-with-different-adjacent-characters/">Longest Path With Different Adjacent Characters</a> <code>leetcode</code></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="two-sum-"><a class="header" href="#two-sum-"><a href="https://leetcode.com/problems/two-sum/">Two Sum</a> 💚</a></h1>
+<h4 id="problem-statement"><a class="header" href="#problem-statement">Problem Statement:</a></h4>
+<p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return the indices of the two numbers such that they add up to the <code>target</code>.</p>
+<p>You may assume that each input will have exactly one solution, and you may not use the same element twice.</p>
+<p>You can return the answer in any order.</p>
+<h4 id="example-1"><a class="header" href="#example-1">Example 1:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [2,7,11,15], target = 9
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
+</code></pre>
+<p><strong>Explanation:</strong><br />
+Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
+<hr />
+<h4 id="example-2"><a class="header" href="#example-2">Example 2:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,2,4], target = 6
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[1,2]
+</code></pre>
+<hr />
+<h4 id="example-3"><a class="header" href="#example-3">Example 3:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,3], target = 6
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
+</code></pre>
+<hr />
+<h4 id="constraints"><a class="header" href="#constraints">Constraints:</a></h4>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 10^4</code></li>
+<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+<li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
+<li>Only one valid answer exists.</li>
+</ul>
+<hr />
+<h3 id="problem-analysis"><a class="header" href="#problem-analysis">Problem Analysis:</a></h3>
+<p>Given that we are looking for two numbers whose sum is equal to a target, this is a classic problem that can be solved in several ways, with varying time complexities. The main goal is to find a solution with a time complexity less than <code>O(n^2)</code>.</p>
+<hr />
+<h3 id="approaches"><a class="header" href="#approaches">Approaches:</a></h3>
+<h4 id="1-brute-force-approach-on2"><a class="header" href="#1-brute-force-approach-on2">1. Brute Force Approach (O(n^2)):</a></h4>
+<p>A simple brute force solution would involve checking every possible pair of numbers in the array and checking if their sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Loop through all pairs of elements.</li>
+<li>If the sum of any pair equals the target, return the indices of the pair.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n^2)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<hr />
+<h4 id="2-optimized-approach-with-hash-map-on"><a class="header" href="#2-optimized-approach-with-hash-map-on">2. Optimized Approach with Hash Map (O(n)):</a></h4>
+<p>Using a hash map allows us to store numbers and their indices as we iterate through the array. This reduces the need to check every pair.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Iterate through the array while storing each element and its index in a hash map.</li>
+<li>For each element, check if <code>target - element</code> exists in the hash map. If so, return the indices of both elements.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n)<br />
+<strong>Space Complexity:</strong> O(n)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int num2 = target - nums[i];
+            if (map.containsKey(num2)) {
+                return new int[]{map.get(num2), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>We iterate through the array once.</li>
+<li>For each number, we check if the complementary number (<code>target - nums[i]</code>) has been seen before using the hash map. If it has, return the indices.</li>
+<li>If not, we store the current number and its index in the map for future reference.</li>
+</ul>
+<hr />
+<h4 id="3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on"><a class="header" href="#3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on">3. Optimized Approach with Two Pointers (Only works if array is sorted) (O(n)):</a></h4>
+<p>This approach assumes that the array is sorted. It uses two pointers to check pairs of numbers whose sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Sort the array.</li>
+<li>Initialize two pointers: one at the start of the array, the other at the end.</li>
+<li>Move the pointers inward, checking if the sum of the numbers at the two pointers is equal to the target.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n log n) (due to sorting)<br />
+<strong>Space Complexity:</strong> O(1) (additional space)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
 <p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
-<h3 id="example-1"><a class="header" href="#example-1">Example 1:</a></h3>
+<h3 id="example-1-1"><a class="header" href="#example-1-1">Example 1:</a></h3>
 <pre><code>Input: strs = ["eat","tea","tan","ate","nat","bat"]
 
 Output: [["bat"],["nat","tan"],["ate","eat","tea"]]  
@@ -1244,15 +1363,15 @@ Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 <p>There is no string in strs that can be rearranged to form "bat".
 The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
 The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.</p>
-<h3 id="example-2"><a class="header" href="#example-2">Example 2:</a></h3>
+<h3 id="example-2-1"><a class="header" href="#example-2-1">Example 2:</a></h3>
 <pre><code>Input: strs = [""]
 Output: [[""]]
 </code></pre>
-<h3 id="example-3"><a class="header" href="#example-3">Example 3:</a></h3>
+<h3 id="example-3-1"><a class="header" href="#example-3-1">Example 3:</a></h3>
 <pre><code>Input: strs = ["a"]
 Output: [["a"]]
 </code></pre>
-<h2 id="constraints"><a class="header" href="#constraints">Constraints:</a></h2>
+<h2 id="constraints-1"><a class="header" href="#constraints-1">Constraints:</a></h2>
 <p>1 &lt;= strs.length &lt;= 104<br />
 0 &lt;= strs[i].length &lt;= 100<br />
 strs[i] consists of lowercase English letters.</p>
@@ -1360,7 +1479,7 @@ Output: [1,2]
 <pre><code>Input: nums = [1], k = 1
 Output: [1]
 </code></pre>
-<h3 id="constraints-1"><a class="header" href="#constraints-1">Constraints:</a></h3>
+<h3 id="constraints-2"><a class="header" href="#constraints-2">Constraints:</a></h3>
 <p>1 &lt;= nums.length &lt;= 105<br />
 -104 &lt;= nums[i] &lt;= 104<br />
 k is in the range [1, the number of unique elements in the array].<br />
@@ -1369,6 +1488,47 @@ It is guaranteed that the answer is unique.</p>
 <hr />
 <h3 id="approach-1-store-occurence-in-hashmap-and-then-sort-it"><a class="header" href="#approach-1-store-occurence-in-hashmap-and-then-sort-it">Approach 1: Store occurence in hashmap and then sort it</a></h3>
 <h3 id="approach-2-hashmap--priority-queue"><a class="header" href="#approach-2-hashmap--priority-queue">Approach 2: HashMap + Priority Queue</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="encode-and-decode-strings-"><a class="header" href="#encode-and-decode-strings-"><a href="https://www.geeksforgeeks.org/problems/encode-and-decode-strings/1">Encode and Decode Strings</a> 💛</a></h1>
+<p>Given an array of strings s[], you are required to create an algorithm in the encode() function that can convert the given strings into a single encoded string, which can be transmitted over the network and then decoded back into the original array of strings. The decoding will happen in the decode() function.</p>
+<p>You need to implement two functions:</p>
+<ol>
+<li>encode(): This takes an array of strings s[] and encodes it into a single string.</li>
+<li>decode(): This takes the encoded string as input and returns an array of strings containing the original array as given in the encode method.</li>
+</ol>
+<p>Note: You are not allowed to use any inbuilt serialize method.</p>
+<p>Example 1:</p>
+<pre><code>Input: s = ["Hello","World"]
+Output: ["Hello","World"]
+</code></pre>
+<p>Explanation: The encode() function will have the str as input, it will be encoded by one machine. Then another machine will receive the encoded string as the input parameter and then will decode it to its original form.</p>
+<p>Example 2:</p>
+<pre><code>Input: s = ["abc","!@"]
+Output: ["abc","!@"]
+</code></pre>
+<p>Explanation: The encode() function will have the str as input, here there are two strings, one is "abc" and the other one has some special characters. It will be encoded by one machine. Then another machine will receive the encoded string as the input parameter and then will decode it to its original form.</p>
+<h3 id="constraints-3"><a class="header" href="#constraints-3">Constraints:</a></h3>
+<p>1&lt;=s.size()&lt;=100<br />
+1&lt;=s[i].size()&lt;=100<br />
+s[i] contains any possible characters out of the 256 ASCII characters.</p>
+<hr />
+<h3 id="solution"><a class="header" href="#solution">Solution</a></h3>
+<pre><code class="language-java">class Solution {
+
+    public String encode(String s[]) {
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i&lt;s.length-1;i++) {
+            sb.append(s[i]);
+            sb.append('#');
+        }
+        sb.append(s[s.length-1]);
+        return sb.toString();
+    }
+
+    public String[] decode(String s) {
+        return s.split("#");
+    }
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="product-of-array-except-self-"><a class="header" href="#product-of-array-except-self-"><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self</a> 💛</a></h1>
 <p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
 <p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
@@ -1381,11 +1541,424 @@ Output: [24,12,8,6]
 <pre><code>Input: nums = [-1,1,0,-3,3]
 Output: [0,0,9,0,0]
 </code></pre>
-<h3 id="constraints-2"><a class="header" href="#constraints-2">Constraints:</a></h3>
+<h3 id="constraints-4"><a class="header" href="#constraints-4">Constraints:</a></h3>
 <p>2 &lt;= nums.length &lt;= 105<br />
 -30 &lt;= nums[i] &lt;= 30<br />
 The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.</p>
 <p>Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)</p>
+<hr />
+<h3 id="problem-product-of-array-except-self"><a class="header" href="#problem-product-of-array-except-self">Problem: Product of Array Except Self</a></h3>
+<p>The task is to calculate a new array <code>result</code> such that each element at index <code>i</code> of the array <code>result</code> is the product of all the elements of the input array <code>nums</code> except the one at index <code>i</code>. You cannot use division, and the solution must run in (O(n)) time.</p>
+<hr />
+<h3 id="approach-1-using-prefix-and-postfix-arrays"><a class="header" href="#approach-1-using-prefix-and-postfix-arrays">Approach 1: Using Prefix and Postfix Arrays</a></h3>
+<p>This approach calculates the <strong>prefix product</strong> and <strong>postfix product</strong> for each element, then combines them to get the result.</p>
+<h4 id="explanation"><a class="header" href="#explanation">Explanation:</a></h4>
+<ol>
+<li>
+<p><strong>Initialize Helper Arrays</strong>:</p>
+<ul>
+<li><code>prefixProduct[i]</code> holds the product of all elements before index <code>i</code>.</li>
+<li><code>postfixProduct[i]</code> holds the product of all elements after index <code>i</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Prefix Products</strong>:</p>
+<ul>
+<li>Start with <code>prefixProduct[0] = 1</code> (no elements before the first element).</li>
+<li>For each index <code>i</code>, calculate:
+<pre><code>prefixProduct[i] = prefixProduct[i-1] * nums[i-1];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Postfix Products</strong>:</p>
+<ul>
+<li>Start with <code>postfixProduct[len-1] = 1</code> (no elements after the last element).</li>
+<li>For each index <code>i</code> (from right to left):
+<pre><code>postfixProduct[i] = postfixProduct[i+1] * nums[i+1];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Combine Prefix and Postfix Products</strong>:</p>
+<ul>
+<li>For each index <code>i</code>, calculate the result as:
+<pre><code>ans[i] = prefixProduct[i] * postfixProduct[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity</strong>:</p>
+<ul>
+<li>Prefix computation: (O(n)).</li>
+<li>Postfix computation: (O(n)).</li>
+<li>Final combination: (O(n)).</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-java">class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] prefixProduct = new int[len];
+        int[] postfixProduct = new int[len];
+        int[] ans = new int[len];
+
+        prefixProduct[0] = 1;
+        postfixProduct[len - 1] = 1;
+
+        for (int i = 1; i &lt; nums.length; i++) {
+            prefixProduct[i] = prefixProduct[i - 1] * nums[i - 1];
+        }
+
+        for (int i = nums.length - 2; i &gt;= 0; i--) {
+            postfixProduct[i] = postfixProduct[i + 1] * nums[i + 1];
+        }
+
+        for (int i = 0; i &lt; len; i++) {
+            ans[i] = prefixProduct[i] * postfixProduct[i];
+        }
+
+        return ans;
+    }
+}
+</code></pre>
+<h3 id="approach-2-optimized-solution-without-extra-space"><a class="header" href="#approach-2-optimized-solution-without-extra-space">Approach 2: Optimized Solution Without Extra Space</a></h3>
+<p>This approach avoids using extra arrays for prefix and postfix products by calculating the result directly in one pass for prefix and one pass for postfix.</p>
+<h4 id="explanation-1"><a class="header" href="#explanation-1">Explanation:</a></h4>
+<ol>
+<li>
+<p><strong>Initialize the Result Array</strong>:</p>
+<ul>
+<li>The <code>result</code> array will hold the prefix product in the first pass.</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Prefix Products</strong>:</p>
+<ul>
+<li>Use a variable <code>pre</code> to keep track of the running prefix product.</li>
+<li>For each index <code>i</code>, set:
+<pre><code>result[i] = pre;
+pre = pre * nums[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Postfix Products</strong>:</p>
+<ul>
+<li>Use a variable <code>post</code> to keep track of the running postfix product.</li>
+<li>Traverse from right to left and update <code>result</code> as:
+<pre><code>result[i] = result[i] * post;
+post = post * nums[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity</strong>:</p>
+<ul>
+<li>Prefix computation: (O(n)).</li>
+<li>Postfix computation: (O(n)).</li>
+<li>Space complexity: (O(1)) (ignoring output array).</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-java">class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+        int pre = 1, post = 1;
+
+        for (int i = 0; i &lt; nums.length; i++) {
+            result[i] = pre; 
+            pre = pre * nums[i];
+        }
+
+        for (int i = nums.length - 1; i &gt;= 0; i--) {
+            result[i] = result[i] * post;
+            post = post * nums[i];
+        }
+
+        return result;
+    }
+}
+</code></pre>
+<h3 id="key-differences-between-the-approaches"><a class="header" href="#key-differences-between-the-approaches">Key Differences Between the Approaches:</a></h3>
+<div class="table-wrapper"><table><thead><tr><th><strong>Feature</strong></th><th><strong>Approach 1</strong></th><th><strong>Approach 2</strong></th></tr></thead><tbody>
+<tr><td><strong>Space Complexity</strong></td><td>(O(n)) (extra arrays)</td><td>(O(1)) (no extra arrays)</td></tr>
+<tr><td><strong>Implementation</strong></td><td>Easier to understand</td><td>Slightly more optimized</td></tr>
+<tr><td><strong>Performance</strong></td><td>Similar runtime (O(n))</td><td>Similar runtime (O(n))</td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="valid-sudoku-"><a class="header" href="#valid-sudoku-"><a href="https://leetcode.com/problems/valid-sudoku/description/">Valid Sudoku</a> 💛</a></h1>
+<p>Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
+<p>Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:</p>
+<p>A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.</p>
+<p>Example 1:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" alt="sudoku" /></p>
+<pre><code>Input: board = 
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+Output: true
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: board = 
+[["8","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+Output: false
+Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+</code></pre>
+<p>Constraints:</p>
+<p>board.length == 9<br />
+board[i].length == 9<br />
+board[i][j] is a digit 1-9 or '.'.</p>
+<hr />
+<h3 id="approach-using-hashmap-for-sudoku-validation"><a class="header" href="#approach-using-hashmap-for-sudoku-validation">Approach: Using HashMap for Sudoku Validation</a></h3>
+<p>This approach uses a HashMap to track seen characters in rows, columns, and sub-boxes while iterating through the Sudoku board.</p>
+<pre><code class="language-java">class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        final int N = 9;
+    
+        Map&lt;String, Set&lt;Character&gt;&gt; map = new HashMap&lt;&gt;();
+
+        for(int i = 0; i &lt; N; i++) {
+            map.put("R" + i, new HashSet&lt;&gt;()); // Row
+            map.put("C" + i, new HashSet&lt;&gt;()); // Column
+            map.put("B" + i, new HashSet&lt;&gt;()); // Box
+        }
+
+        for(int r = 0; r &lt; N; r++) {
+            for(int c = 0; c &lt; N; c++) {
+                char ch = board[r][c];
+                int box = r / 3 * 3 + c / 3;
+
+                if(ch == '.') {
+                    continue;
+                }
+
+                if(
+                    map.get("R" + r).contains(ch) ||
+                    map.get("C" + c).contains(ch) ||
+                    map.get("B" + box).contains(ch)
+                ) {
+                    return false;
+                }
+
+                map.get("R" + r).add(ch);
+                map.get("C" + c).add(ch);
+                map.get("B" + box).add(ch);
+            }
+        }
+        return true;
+    }
+}
+</code></pre>
+<h4 id="complexity-analysis-2"><a class="header" href="#complexity-analysis-2">Complexity Analysis:</a></h4>
+<p><strong>Time Complexity</strong>: O(N²), where N = 9 (constant board size). Iterates through each cell of the board once.</p>
+<p><strong>Space Complexity</strong>: O(N²), for storing sets in the HashMap to track characters in rows, columns, and boxes.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="longest-consecutive-sequence-"><a class="header" href="#longest-consecutive-sequence-"><a href="https://leetcode.com/problems/longest-consecutive-sequence/description/">Longest Consecutive Sequence</a> 💛</a></h1>
+<p>Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.</p>
+<p>You must write an algorithm that runs in O(n) time.</p>
+<p>Example 1:</p>
+<pre><code>Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+</code></pre>
+<h3 id="constraints-5"><a class="header" href="#constraints-5">Constraints:</a></h3>
+<p>0 &lt;= nums.length &lt;= 105<br />
+-109 &lt;= nums[i] &lt;= 109</p>
+<hr />
+<h3 id="approach-1-sorting"><a class="header" href="#approach-1-sorting">Approach 1: Sorting</a></h3>
+<p>This approach sorts the input array and finds the longest consecutive sequence by iterating through the sorted array. Consecutive numbers are counted, and the maximum sequence length is tracked.</p>
+<h4 id="code"><a class="header" href="#code">Code:</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+        
+        int max = 1;
+        int currentMax = 1;
+        for(int i = 1; i &lt; nums.length; i++) {
+            if(nums[i] == nums[i - 1]) {
+                continue;
+            } else if (nums[i] == nums[i - 1] + 1) {
+                currentMax++;
+            } else {
+                currentMax = 1;
+            }
+            max = Math.max(max, currentMax);
+        }
+        return max;
+    }
+}
+</code></pre>
+<h4 id="complexity-analysis-3"><a class="header" href="#complexity-analysis-3">Complexity Analysis:</a></h4>
+<ul>
+<li><strong>Time Complexity:</strong> O(N log N), where N is the number of elements in the input array. This is due to the sorting step.</li>
+<li><strong>Space Complexity:</strong> O(1) (if sorting in place) or O(N) (if additional space is used for sorting).</li>
+</ul>
+<hr />
+<h3 id="approach-2-using-hashset"><a class="header" href="#approach-2-using-hashset">Approach 2: Using HashSet</a></h3>
+<p>This approach leverages a HashSet to store all unique numbers from the array. By iterating through the set, the algorithm checks for consecutive sequences, starting with numbers that do not have a preceding number in the set.</p>
+<h4 id="code-1"><a class="header" href="#code-1">Code:</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) {
+            return 0;
+        }
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for(int num : nums) {
+            set.add(num);
+        }
+
+        int longestSub = 1;
+        for(int num : set) {
+            if(set.contains(num - 1)) {
+                continue;
+            }
+
+            int currentNum = num;
+            int currentMax = 1;
+            while(set.contains(currentNum + 1)) {
+                currentNum++;
+                currentMax++;
+            }
+            longestSub = Math.max(currentMax, longestSub);
+        }
+        return longestSub;
+    }
+}
+</code></pre>
+<h4 id="complexity-analysis-4"><a class="header" href="#complexity-analysis-4">Complexity Analysis:</a></h4>
+<ul>
+<li><strong>Time Complexity:</strong> O(N), where N is the number of elements in the input array. Each number is processed once in the worst case.</li>
+<li><strong>Space Complexity:</strong> O(N), for the HashSet to store the elements.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="valid-palindrome-"><a class="header" href="#valid-palindrome-"><a href="https://leetcode.com/problems/valid-palindrome/discussion">Valid Palindrome</a> 💚</a></h1>
+<p>A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.</p>
+<p>Given a string <code>s</code>, return <code>true</code> if it is a palindrome, or <code>false</code> otherwise.</p>
+<h4 id="example-1-2"><a class="header" href="#example-1-2">Example 1:</a></h4>
+<pre><code>Input: 
+s = "A man, a plan, a canal: Panama"
+
+Output:
+true
+</code></pre>
+<p><strong>Explanation:</strong><br />
+"amanaplanacanalpanama" is a palindrome.</p>
+<h4 id="example-2-2"><a class="header" href="#example-2-2">Example 2:</a></h4>
+<pre><code>Input:  
+s = "race a car"
+
+Output:  
+false
+</code></pre>
+<p><strong>Explanation:</strong><br />
+"raceacar" is not a palindrome.</p>
+<h4 id="example-3-2"><a class="header" href="#example-3-2">Example 3:</a></h4>
+<pre><code>Input:  
+s = " "
+
+Output:  
+true
+</code></pre>
+<p><strong>Explanation:</strong><br />
+An empty string reads the same forward and backward, so it is a palindrome.</p>
+<h4 id="constraints-6"><a class="header" href="#constraints-6">Constraints:</a></h4>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 2 * 10^5</code></li>
+<li><code>s</code> consists only of printable ASCII characters.</li>
+</ul>
+<hr />
+<h3 id="approach-1-two-pointer-approach-on-time-complexity-o1-space-complexity"><a class="header" href="#approach-1-two-pointer-approach-on-time-complexity-o1-space-complexity">Approach 1: Two Pointer Approach (O(n) time complexity, O(1) space complexity)</a></h3>
+<p><strong>Algorithm:</strong></p>
+<ol>
+<li>Use two pointers, <code>i</code> starting from the beginning of the string and <code>j</code> from the end.</li>
+<li>Move the pointers towards each other while skipping non-alphanumeric characters.</li>
+<li>Convert the characters to lowercase and compare them.</li>
+<li>If any pair of characters don't match, return <code>false</code>.</li>
+<li>If the pointers cross each other without finding a mismatch, return <code>true</code>.</li>
+</ol>
+<p><strong>Time Complexity:</strong> O(n), where n is the length of the string.<br />
+<strong>Space Complexity:</strong> O(1), as we only use a constant amount of extra space.</p>
+<pre><code class="language-java">class Solution {
+    public boolean isPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+
+        while (i &lt; j) { 
+            char ch1 = Character.toLowerCase(s.charAt(i));
+            char ch2 = Character.toLowerCase(s.charAt(j));
+
+            // Skip non-alphanumeric characters
+            if (!Character.isLetterOrDigit(ch1)) {
+                i++;
+                continue;
+            }   
+            if (!Character.isLetterOrDigit(ch2)) {
+                j--;
+                continue;
+            }
+
+            // Check for mismatch
+            if (ch1 != ch2) {
+                return false;
+            }
+
+            // Move pointers inward
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+}
+</code></pre>
+<h4 id="explanation-2"><a class="header" href="#explanation-2">Explanation:</a></h4>
+<ul>
+<li>We initialize two pointers <code>i</code> and <code>j</code> at the beginning and end of the string.</li>
+<li>For each pair of characters, we first skip non-alphanumeric characters and then compare the corresponding characters.</li>
+<li>If they are not equal, we return <code>false</code>. If the loop completes without finding a mismatch, we return <code>true</code>.</li>
+</ul>
+<h4 id="edge-cases"><a class="header" href="#edge-cases">Edge Cases:</a></h4>
+<ol>
+<li><strong>Empty string</strong>: An empty string is considered a palindrome.</li>
+<li><strong>String with only non-alphanumeric characters</strong>: After removing the non-alphanumeric characters, an empty string is considered a palindrome.</li>
+<li><strong>Mixed cases</strong>: The function converts all characters to lowercase before comparing them to ensure case insensitivity.</li>
+</ol>
+<p>This solution ensures that we check the string efficiently and meet the problem's constraints.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="two-sum-ii-input-array-is-sorted-"><a class="header" href="#two-sum-ii-input-array-is-sorted-"><a href="neetcode_150/two_pointers/">Two Sum II Input Array Is Sorted</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3sum-"><a class="header" href="#3sum-"><a href="neetcode_150/two_pointers/">3Sum</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="container-with-most-water-"><a class="header" href="#container-with-most-water-"><a href="neetcode_150/two_pointers/">Container With Most Water</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trapping-rain-water-"><a class="header" href="#trapping-rain-water-"><a href="neetcode_150/two_pointers/">Trapping Rain Water</a> ❤️</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="greedy-algorithm"><a class="header" href="#greedy-algorithm">Greedy Algorithm</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="shortest-job-first-or-sjf-cpu-scheduling"><a class="header" href="#shortest-job-first-or-sjf-cpu-scheduling">Shortest Job First (or SJF) CPU Scheduling</a></h1>
 <p>The shortest job first (SJF) or shortest job next, is a scheduling policy that selects the waiting process with the smallest execution time to execute next.</p>

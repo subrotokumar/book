@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Top K Frequent Elements - Book</title>
+        <title>Two Sum - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,35 +152,135 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="top-k-frequent-elements-"><a class="header" href="#top-k-frequent-elements-"><a href="https://leetcode.com/problems/top-k-frequent-elements/description/">Top K Frequent Elements</a> 💛</a></h1>
-<p>Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.</p>
-<p>Example 1:</p>
-<pre><code>Input: nums = [1,1,1,2,2,3], k = 2
-Output: [1,2]
+                        <h1 id="two-sum-"><a class="header" href="#two-sum-"><a href="https://leetcode.com/problems/two-sum/">Two Sum</a> 💚</a></h1>
+<h4 id="problem-statement"><a class="header" href="#problem-statement">Problem Statement:</a></h4>
+<p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return the indices of the two numbers such that they add up to the <code>target</code>.</p>
+<p>You may assume that each input will have exactly one solution, and you may not use the same element twice.</p>
+<p>You can return the answer in any order.</p>
+<h4 id="example-1"><a class="header" href="#example-1">Example 1:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [2,7,11,15], target = 9
 </code></pre>
-<p>Example 2:</p>
-<pre><code>Input: nums = [1], k = 1
-Output: [1]
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
 </code></pre>
-<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
-<p>1 &lt;= nums.length &lt;= 105<br />
--104 &lt;= nums[i] &lt;= 104<br />
-k is in the range [1, the number of unique elements in the array].<br />
-It is guaranteed that the answer is unique.</p>
-<p>Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.</p>
+<p><strong>Explanation:</strong><br />
+Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
 <hr />
-<h3 id="approach-1-store-occurence-in-hashmap-and-then-sort-it"><a class="header" href="#approach-1-store-occurence-in-hashmap-and-then-sort-it">Approach 1: Store occurence in hashmap and then sort it</a></h3>
-<h3 id="approach-2-hashmap--priority-queue"><a class="header" href="#approach-2-hashmap--priority-queue">Approach 2: HashMap + Priority Queue</a></h3>
+<h4 id="example-2"><a class="header" href="#example-2">Example 2:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,2,4], target = 6
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[1,2]
+</code></pre>
+<hr />
+<h4 id="example-3"><a class="header" href="#example-3">Example 3:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,3], target = 6
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
+</code></pre>
+<hr />
+<h4 id="constraints"><a class="header" href="#constraints">Constraints:</a></h4>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 10^4</code></li>
+<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+<li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
+<li>Only one valid answer exists.</li>
+</ul>
+<hr />
+<h3 id="problem-analysis"><a class="header" href="#problem-analysis">Problem Analysis:</a></h3>
+<p>Given that we are looking for two numbers whose sum is equal to a target, this is a classic problem that can be solved in several ways, with varying time complexities. The main goal is to find a solution with a time complexity less than <code>O(n^2)</code>.</p>
+<hr />
+<h3 id="approaches"><a class="header" href="#approaches">Approaches:</a></h3>
+<h4 id="1-brute-force-approach-on2"><a class="header" href="#1-brute-force-approach-on2">1. Brute Force Approach (O(n^2)):</a></h4>
+<p>A simple brute force solution would involve checking every possible pair of numbers in the array and checking if their sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Loop through all pairs of elements.</li>
+<li>If the sum of any pair equals the target, return the indices of the pair.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n^2)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<hr />
+<h4 id="2-optimized-approach-with-hash-map-on"><a class="header" href="#2-optimized-approach-with-hash-map-on">2. Optimized Approach with Hash Map (O(n)):</a></h4>
+<p>Using a hash map allows us to store numbers and their indices as we iterate through the array. This reduces the need to check every pair.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Iterate through the array while storing each element and its index in a hash map.</li>
+<li>For each element, check if <code>target - element</code> exists in the hash map. If so, return the indices of both elements.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n)<br />
+<strong>Space Complexity:</strong> O(n)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int num2 = target - nums[i];
+            if (map.containsKey(num2)) {
+                return new int[]{map.get(num2), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>We iterate through the array once.</li>
+<li>For each number, we check if the complementary number (<code>target - nums[i]</code>) has been seen before using the hash map. If it has, return the indices.</li>
+<li>If not, we store the current number and its index in the map for future reference.</li>
+</ul>
+<hr />
+<h4 id="3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on"><a class="header" href="#3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on">3. Optimized Approach with Two Pointers (Only works if array is sorted) (O(n)):</a></h4>
+<p>This approach assumes that the array is sorted. It uses two pointers to check pairs of numbers whose sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Sort the array.</li>
+<li>Initialize two pointers: one at the start of the array, the other at the end.</li>
+<li>Move the pointers inward, checking if the sum of the numbers at the two pointers is equal to the target.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n log n) (due to sorting)<br />
+<strong>Space Complexity:</strong> O(1) (additional space)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../problems/18-heaps.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -190,11 +290,11 @@ It is guaranteed that the answer is unique.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../problems/18-heaps.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

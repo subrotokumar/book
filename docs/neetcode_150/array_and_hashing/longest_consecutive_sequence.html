@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Heaps - Book</title>
+        <title>Longest Consecutive Sequence - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -12,32 +12,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -89,7 +89,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -123,7 +123,7 @@
                     <h1 class="menu-title">Book</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -152,16 +152,101 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="longest-consecutive-sequence-"><a class="header" href="#longest-consecutive-sequence-"><a href="https://leetcode.com/problems/longest-consecutive-sequence/description/">Longest Consecutive Sequence</a> 💛</a></h1>
+<p>Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.</p>
+<p>You must write an algorithm that runs in O(n) time.</p>
+<p>Example 1:</p>
+<pre><code>Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+</code></pre>
+<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
+<p>0 &lt;= nums.length &lt;= 105<br />
+-109 &lt;= nums[i] &lt;= 109</p>
+<hr />
+<h3 id="approach-1-sorting"><a class="header" href="#approach-1-sorting">Approach 1: Sorting</a></h3>
+<p>This approach sorts the input array and finds the longest consecutive sequence by iterating through the sorted array. Consecutive numbers are counted, and the maximum sequence length is tracked.</p>
+<h4 id="code"><a class="header" href="#code">Code:</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        System.out.println(Arrays.toString(nums));
+        
+        int max = 1;
+        int currentMax = 1;
+        for(int i = 1; i &lt; nums.length; i++) {
+            if(nums[i] == nums[i - 1]) {
+                continue;
+            } else if (nums[i] == nums[i - 1] + 1) {
+                currentMax++;
+            } else {
+                currentMax = 1;
+            }
+            max = Math.max(max, currentMax);
+        }
+        return max;
+    }
+}
+</code></pre>
+<h4 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis:</a></h4>
+<ul>
+<li><strong>Time Complexity:</strong> O(N log N), where N is the number of elements in the input array. This is due to the sorting step.</li>
+<li><strong>Space Complexity:</strong> O(1) (if sorting in place) or O(N) (if additional space is used for sorting).</li>
+</ul>
+<hr />
+<h3 id="approach-2-using-hashset"><a class="header" href="#approach-2-using-hashset">Approach 2: Using HashSet</a></h3>
+<p>This approach leverages a HashSet to store all unique numbers from the array. By iterating through the set, the algorithm checks for consecutive sequences, starting with numbers that do not have a preceding number in the set.</p>
+<h4 id="code-1"><a class="header" href="#code-1">Code:</a></h4>
+<pre><code class="language-java">class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) {
+            return 0;
+        }
+        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
+        for(int num : nums) {
+            set.add(num);
+        }
+
+        int longestSub = 1;
+        for(int num : set) {
+            if(set.contains(num - 1)) {
+                continue;
+            }
+
+            int currentNum = num;
+            int currentMax = 1;
+            while(set.contains(currentNum + 1)) {
+                currentNum++;
+                currentMax++;
+            }
+            longestSub = Math.max(currentMax, longestSub);
+        }
+        return longestSub;
+    }
+}
+</code></pre>
+<h4 id="complexity-analysis-1"><a class="header" href="#complexity-analysis-1">Complexity Analysis:</a></h4>
+<ul>
+<li><strong>Time Complexity:</strong> O(N), where N is the number of elements in the input array. Each number is processed once in the worst case.</li>
+<li><strong>Space Complexity:</strong> O(N), for the HashSet to store the elements.</li>
+</ul>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../problems/17-trees.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../neetcode_150/array_and_hashing/two_sum.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../neetcode_150/two_pointers/valid_palindrome.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -171,11 +256,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../problems/17-trees.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../neetcode_150/array_and_hashing/two_sum.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../neetcode_150/two_pointers/valid_palindrome.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -190,17 +275,17 @@
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../mermaid.min.js"></script>
-        <script src="../mermaid-init.js"></script>
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
 
 
     </div>

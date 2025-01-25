@@ -169,16 +169,161 @@ Output: [0,0,9,0,0]
 -30 &lt;= nums[i] &lt;= 30<br />
 The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.</p>
 <p>Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)</p>
+<hr />
+<h3 id="problem-product-of-array-except-self"><a class="header" href="#problem-product-of-array-except-self">Problem: Product of Array Except Self</a></h3>
+<p>The task is to calculate a new array <code>result</code> such that each element at index <code>i</code> of the array <code>result</code> is the product of all the elements of the input array <code>nums</code> except the one at index <code>i</code>. You cannot use division, and the solution must run in (O(n)) time.</p>
+<hr />
+<h3 id="approach-1-using-prefix-and-postfix-arrays"><a class="header" href="#approach-1-using-prefix-and-postfix-arrays">Approach 1: Using Prefix and Postfix Arrays</a></h3>
+<p>This approach calculates the <strong>prefix product</strong> and <strong>postfix product</strong> for each element, then combines them to get the result.</p>
+<h4 id="explanation"><a class="header" href="#explanation">Explanation:</a></h4>
+<ol>
+<li>
+<p><strong>Initialize Helper Arrays</strong>:</p>
+<ul>
+<li><code>prefixProduct[i]</code> holds the product of all elements before index <code>i</code>.</li>
+<li><code>postfixProduct[i]</code> holds the product of all elements after index <code>i</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Prefix Products</strong>:</p>
+<ul>
+<li>Start with <code>prefixProduct[0] = 1</code> (no elements before the first element).</li>
+<li>For each index <code>i</code>, calculate:
+<pre><code>prefixProduct[i] = prefixProduct[i-1] * nums[i-1];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Postfix Products</strong>:</p>
+<ul>
+<li>Start with <code>postfixProduct[len-1] = 1</code> (no elements after the last element).</li>
+<li>For each index <code>i</code> (from right to left):
+<pre><code>postfixProduct[i] = postfixProduct[i+1] * nums[i+1];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Combine Prefix and Postfix Products</strong>:</p>
+<ul>
+<li>For each index <code>i</code>, calculate the result as:
+<pre><code>ans[i] = prefixProduct[i] * postfixProduct[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity</strong>:</p>
+<ul>
+<li>Prefix computation: (O(n)).</li>
+<li>Postfix computation: (O(n)).</li>
+<li>Final combination: (O(n)).</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-java">class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] prefixProduct = new int[len];
+        int[] postfixProduct = new int[len];
+        int[] ans = new int[len];
 
+        prefixProduct[0] = 1;
+        postfixProduct[len - 1] = 1;
+
+        for (int i = 1; i &lt; nums.length; i++) {
+            prefixProduct[i] = prefixProduct[i - 1] * nums[i - 1];
+        }
+
+        for (int i = nums.length - 2; i &gt;= 0; i--) {
+            postfixProduct[i] = postfixProduct[i + 1] * nums[i + 1];
+        }
+
+        for (int i = 0; i &lt; len; i++) {
+            ans[i] = prefixProduct[i] * postfixProduct[i];
+        }
+
+        return ans;
+    }
+}
+</code></pre>
+<h3 id="approach-2-optimized-solution-without-extra-space"><a class="header" href="#approach-2-optimized-solution-without-extra-space">Approach 2: Optimized Solution Without Extra Space</a></h3>
+<p>This approach avoids using extra arrays for prefix and postfix products by calculating the result directly in one pass for prefix and one pass for postfix.</p>
+<h4 id="explanation-1"><a class="header" href="#explanation-1">Explanation:</a></h4>
+<ol>
+<li>
+<p><strong>Initialize the Result Array</strong>:</p>
+<ul>
+<li>The <code>result</code> array will hold the prefix product in the first pass.</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Prefix Products</strong>:</p>
+<ul>
+<li>Use a variable <code>pre</code> to keep track of the running prefix product.</li>
+<li>For each index <code>i</code>, set:
+<pre><code>result[i] = pre;
+pre = pre * nums[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Postfix Products</strong>:</p>
+<ul>
+<li>Use a variable <code>post</code> to keep track of the running postfix product.</li>
+<li>Traverse from right to left and update <code>result</code> as:
+<pre><code>result[i] = result[i] * post;
+post = post * nums[i];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity</strong>:</p>
+<ul>
+<li>Prefix computation: (O(n)).</li>
+<li>Postfix computation: (O(n)).</li>
+<li>Space complexity: (O(1)) (ignoring output array).</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-java">class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] result = new int[nums.length];
+        int pre = 1, post = 1;
+
+        for (int i = 0; i &lt; nums.length; i++) {
+            result[i] = pre; 
+            pre = pre * nums[i];
+        }
+
+        for (int i = nums.length - 1; i &gt;= 0; i--) {
+            result[i] = result[i] * post;
+            post = post * nums[i];
+        }
+
+        return result;
+    }
+}
+</code></pre>
+<h3 id="key-differences-between-the-approaches"><a class="header" href="#key-differences-between-the-approaches">Key Differences Between the Approaches:</a></h3>
+<div class="table-wrapper"><table><thead><tr><th><strong>Feature</strong></th><th><strong>Approach 1</strong></th><th><strong>Approach 2</strong></th></tr></thead><tbody>
+<tr><td><strong>Space Complexity</strong></td><td>(O(n)) (extra arrays)</td><td>(O(1)) (no extra arrays)</td></tr>
+<tr><td><strong>Implementation</strong></td><td>Easier to understand</td><td>Slightly more optimized</td></tr>
+<tr><td><strong>Performance</strong></td><td>Similar runtime (O(n))</td><td>Similar runtime (O(n))</td></tr>
+</tbody></table>
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../greedy_algorithm/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -188,11 +333,11 @@ The input is generated such that answer[i] is guaranteed to fit in a 32-bit inte
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../greedy_algorithm/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
