@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Product of Array Except Self - Book</title>
+        <title>Two Sum - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,178 +152,135 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="product-of-array-except-self-"><a class="header" href="#product-of-array-except-self-"><a href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array Except Self</a> 💛</a></h1>
-<p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
-<p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
-<p>You must write an algorithm that runs in O(n) time and without using the division operation.</p>
-<p>Example 1:</p>
-<pre><code>Input: nums = [1,2,3,4]
-Output: [24,12,8,6]
+                        <h1 id="two-sum-"><a class="header" href="#two-sum-"><a href="https://leetcode.com/problems/two-sum/">Two Sum</a> 💚</a></h1>
+<h4 id="problem-statement"><a class="header" href="#problem-statement">Problem Statement:</a></h4>
+<p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return the indices of the two numbers such that they add up to the <code>target</code>.</p>
+<p>You may assume that each input will have exactly one solution, and you may not use the same element twice.</p>
+<p>You can return the answer in any order.</p>
+<h4 id="example-1"><a class="header" href="#example-1">Example 1:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [2,7,11,15], target = 9
 </code></pre>
-<p>Example 2:</p>
-<pre><code>Input: nums = [-1,1,0,-3,3]
-Output: [0,0,9,0,0]
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
 </code></pre>
-<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
-<p>2 &lt;= nums.length &lt;= 105<br />
--30 &lt;= nums[i] &lt;= 30<br />
-The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer.</p>
-<p>Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)</p>
+<p><strong>Explanation:</strong><br />
+Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
 <hr />
-<h3 id="problem-product-of-array-except-self"><a class="header" href="#problem-product-of-array-except-self">Problem: Product of Array Except Self</a></h3>
-<p>The task is to calculate a new array <code>result</code> such that each element at index <code>i</code> of the array <code>result</code> is the product of all the elements of the input array <code>nums</code> except the one at index <code>i</code>. You cannot use division, and the solution must run in (O(n)) time.</p>
+<h4 id="example-2"><a class="header" href="#example-2">Example 2:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,2,4], target = 6
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[1,2]
+</code></pre>
 <hr />
-<h3 id="approach-1-using-prefix-and-postfix-arrays"><a class="header" href="#approach-1-using-prefix-and-postfix-arrays">Approach 1: Using Prefix and Postfix Arrays</a></h3>
-<p>This approach calculates the <strong>prefix product</strong> and <strong>postfix product</strong> for each element, then combines them to get the result.</p>
-<h4 id="explanation"><a class="header" href="#explanation">Explanation:</a></h4>
-<ol>
-<li>
-<p><strong>Initialize Helper Arrays</strong>:</p>
-<ul>
-<li><code>prefixProduct[i]</code> holds the product of all elements before index <code>i</code>.</li>
-<li><code>postfixProduct[i]</code> holds the product of all elements after index <code>i</code>.</li>
-</ul>
-</li>
-<li>
-<p><strong>Calculate Prefix Products</strong>:</p>
-<ul>
-<li>Start with <code>prefixProduct[0] = 1</code> (no elements before the first element).</li>
-<li>For each index <code>i</code>, calculate:
-<pre><code>prefixProduct[i] = prefixProduct[i-1] * nums[i-1];
+<h4 id="example-3"><a class="header" href="#example-3">Example 3:</a></h4>
+<p><strong>Input:</strong></p>
+<pre><code class="language-java">nums = [3,3], target = 6
 </code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Calculate Postfix Products</strong>:</p>
-<ul>
-<li>Start with <code>postfixProduct[len-1] = 1</code> (no elements after the last element).</li>
-<li>For each index <code>i</code> (from right to left):
-<pre><code>postfixProduct[i] = postfixProduct[i+1] * nums[i+1];
+<p><strong>Output:</strong></p>
+<pre><code class="language-java">[0,1]
 </code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Combine Prefix and Postfix Products</strong>:</p>
+<hr />
+<h4 id="constraints"><a class="header" href="#constraints">Constraints:</a></h4>
 <ul>
-<li>For each index <code>i</code>, calculate the result as:
-<pre><code>ans[i] = prefixProduct[i] * postfixProduct[i];
-</code></pre>
-</li>
+<li><code>2 &lt;= nums.length &lt;= 10^4</code></li>
+<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+<li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
+<li>Only one valid answer exists.</li>
 </ul>
-</li>
-<li>
-<p><strong>Time Complexity</strong>:</p>
+<hr />
+<h3 id="problem-analysis"><a class="header" href="#problem-analysis">Problem Analysis:</a></h3>
+<p>Given that we are looking for two numbers whose sum is equal to a target, this is a classic problem that can be solved in several ways, with varying time complexities. The main goal is to find a solution with a time complexity less than <code>O(n^2)</code>.</p>
+<hr />
+<h3 id="approaches"><a class="header" href="#approaches">Approaches:</a></h3>
+<h4 id="1-brute-force-approach-on2"><a class="header" href="#1-brute-force-approach-on2">1. Brute Force Approach (O(n^2)):</a></h4>
+<p>A simple brute force solution would involve checking every possible pair of numbers in the array and checking if their sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
 <ul>
-<li>Prefix computation: (O(n)).</li>
-<li>Postfix computation: (O(n)).</li>
-<li>Final combination: (O(n)).</li>
+<li>Loop through all pairs of elements.</li>
+<li>If the sum of any pair equals the target, return the indices of the pair.</li>
 </ul>
-</li>
-</ol>
+<p><strong>Time Complexity:</strong> O(n^2)</p>
 <pre><code class="language-java">class Solution {
-    public int[] productExceptSelf(int[] nums) {
-        int len = nums.length;
-        int[] prefixProduct = new int[len];
-        int[] postfixProduct = new int[len];
-        int[] ans = new int[len];
-
-        prefixProduct[0] = 1;
-        postfixProduct[len - 1] = 1;
-
-        for (int i = 1; i &lt; nums.length; i++) {
-            prefixProduct[i] = prefixProduct[i - 1] * nums[i - 1];
-        }
-
-        for (int i = nums.length - 2; i &gt;= 0; i--) {
-            postfixProduct[i] = postfixProduct[i + 1] * nums[i + 1];
-        }
-
-        for (int i = 0; i &lt; len; i++) {
-            ans[i] = prefixProduct[i] * postfixProduct[i];
-        }
-
-        return ans;
-    }
-}
-</code></pre>
-<h3 id="approach-2-optimized-solution-without-extra-space"><a class="header" href="#approach-2-optimized-solution-without-extra-space">Approach 2: Optimized Solution Without Extra Space</a></h3>
-<p>This approach avoids using extra arrays for prefix and postfix products by calculating the result directly in one pass for prefix and one pass for postfix.</p>
-<h4 id="explanation-1"><a class="header" href="#explanation-1">Explanation:</a></h4>
-<ol>
-<li>
-<p><strong>Initialize the Result Array</strong>:</p>
-<ul>
-<li>The <code>result</code> array will hold the prefix product in the first pass.</li>
-</ul>
-</li>
-<li>
-<p><strong>Calculate Prefix Products</strong>:</p>
-<ul>
-<li>Use a variable <code>pre</code> to keep track of the running prefix product.</li>
-<li>For each index <code>i</code>, set:
-<pre><code>result[i] = pre;
-pre = pre * nums[i];
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Calculate Postfix Products</strong>:</p>
-<ul>
-<li>Use a variable <code>post</code> to keep track of the running postfix product.</li>
-<li>Traverse from right to left and update <code>result</code> as:
-<pre><code>result[i] = result[i] * post;
-post = post * nums[i];
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Time Complexity</strong>:</p>
-<ul>
-<li>Prefix computation: (O(n)).</li>
-<li>Postfix computation: (O(n)).</li>
-<li>Space complexity: (O(1)) (ignoring output array).</li>
-</ul>
-</li>
-</ol>
-<pre><code class="language-java">class Solution {
-    public int[] productExceptSelf(int[] nums) {
-        int[] result = new int[nums.length];
-        int pre = 1, post = 1;
-
+    public int[] twoSum(int[] nums, int target) {
         for (int i = 0; i &lt; nums.length; i++) {
-            result[i] = pre; 
-            pre = pre * nums[i];
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
         }
-
-        for (int i = nums.length - 1; i &gt;= 0; i--) {
-            result[i] = result[i] * post;
-            post = post * nums[i];
-        }
-
-        return result;
+        return new int[]{-1, -1};
     }
 }
 </code></pre>
-<h3 id="key-differences-between-the-approaches"><a class="header" href="#key-differences-between-the-approaches">Key Differences Between the Approaches:</a></h3>
-<div class="table-wrapper"><table><thead><tr><th><strong>Feature</strong></th><th><strong>Approach 1</strong></th><th><strong>Approach 2</strong></th></tr></thead><tbody>
-<tr><td><strong>Space Complexity</strong></td><td>(O(n)) (extra arrays)</td><td>(O(1)) (no extra arrays)</td></tr>
-<tr><td><strong>Implementation</strong></td><td>Easier to understand</td><td>Slightly more optimized</td></tr>
-<tr><td><strong>Performance</strong></td><td>Similar runtime (O(n))</td><td>Similar runtime (O(n))</td></tr>
-</tbody></table>
-</div>
+<hr />
+<h4 id="2-optimized-approach-with-hash-map-on"><a class="header" href="#2-optimized-approach-with-hash-map-on">2. Optimized Approach with Hash Map (O(n)):</a></h4>
+<p>Using a hash map allows us to store numbers and their indices as we iterate through the array. This reduces the need to check every pair.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Iterate through the array while storing each element and its index in a hash map.</li>
+<li>For each element, check if <code>target - element</code> exists in the hash map. If so, return the indices of both elements.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n)<br />
+<strong>Space Complexity:</strong> O(n)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int num2 = target - nums[i];
+            if (map.containsKey(num2)) {
+                return new int[]{map.get(num2), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>We iterate through the array once.</li>
+<li>For each number, we check if the complementary number (<code>target - nums[i]</code>) has been seen before using the hash map. If it has, return the indices.</li>
+<li>If not, we store the current number and its index in the map for future reference.</li>
+</ul>
+<hr />
+<h4 id="3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on"><a class="header" href="#3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on">3. Optimized Approach with Two Pointers (Only works if array is sorted) (O(n)):</a></h4>
+<p>This approach assumes that the array is sorted. It uses two pointers to check pairs of numbers whose sum equals the target.</p>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Sort the array.</li>
+<li>Initialize two pointers: one at the start of the array, the other at the end.</li>
+<li>Move the pointers inward, checking if the sum of the numbers at the two pointers is equal to the target.</li>
+</ul>
+<p><strong>Time Complexity:</strong> O(n log n) (due to sorting)<br />
+<strong>Space Complexity:</strong> O(1) (additional space)</p>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+}
+</code></pre>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../problems/18-heaps.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/array_and_hashing/group-anagram.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -333,11 +290,11 @@ post = post * nums[i];
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/encode_and_decode_strings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../problems/18-heaps.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/valid_sudoku.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/array_and_hashing/group-anagram.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

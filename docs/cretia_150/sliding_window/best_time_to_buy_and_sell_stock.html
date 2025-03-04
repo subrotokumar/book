@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Two Sum - Book</title>
+        <title>Best Time to Buy And Sell Stock - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,122 +152,57 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="two-sum-"><a class="header" href="#two-sum-"><a href="https://leetcode.com/problems/two-sum/">Two Sum</a> 💚</a></h1>
-<h4 id="problem-statement"><a class="header" href="#problem-statement">Problem Statement:</a></h4>
-<p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return the indices of the two numbers such that they add up to the <code>target</code>.</p>
-<p>You may assume that each input will have exactly one solution, and you may not use the same element twice.</p>
-<p>You can return the answer in any order.</p>
-<h4 id="example-1"><a class="header" href="#example-1">Example 1:</a></h4>
-<p><strong>Input:</strong></p>
-<pre><code class="language-java">nums = [2,7,11,15], target = 9
+                        <h1 id="best-time-to-buy-and-sell-stock-"><a class="header" href="#best-time-to-buy-and-sell-stock-"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/">Best Time to Buy And Sell Stock</a> 💚</a></h1>
+<p>You are given an array prices where prices[i] is the price of a given stock on the ith day.</p>
+<p>You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.</p>
+<p>Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.</p>
+<p>Example 1:</p>
+<pre><code>Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
 </code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-java">[0,1]
+<p>Example 2:</p>
+<pre><code>Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
 </code></pre>
-<p><strong>Explanation:</strong><br />
-Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
-<hr />
-<h4 id="example-2"><a class="header" href="#example-2">Example 2:</a></h4>
-<p><strong>Input:</strong></p>
-<pre><code class="language-java">nums = [3,2,4], target = 6
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-java">[1,2]
-</code></pre>
-<hr />
-<h4 id="example-3"><a class="header" href="#example-3">Example 3:</a></h4>
-<p><strong>Input:</strong></p>
-<pre><code class="language-java">nums = [3,3], target = 6
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code class="language-java">[0,1]
-</code></pre>
-<hr />
 <h4 id="constraints"><a class="header" href="#constraints">Constraints:</a></h4>
 <ul>
-<li><code>2 &lt;= nums.length &lt;= 10^4</code></li>
-<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
-<li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
-<li>Only one valid answer exists.</li>
+<li>1 &lt;= prices.length &lt;= 105</li>
+<li>0 &lt;= prices[i] &lt;= 104</li>
 </ul>
 <hr />
-<h3 id="problem-analysis"><a class="header" href="#problem-analysis">Problem Analysis:</a></h3>
-<p>Given that we are looking for two numbers whose sum is equal to a target, this is a classic problem that can be solved in several ways, with varying time complexities. The main goal is to find a solution with a time complexity less than <code>O(n^2)</code>.</p>
-<hr />
-<h3 id="approaches"><a class="header" href="#approaches">Approaches:</a></h3>
-<h4 id="1-brute-force-approach-on2"><a class="header" href="#1-brute-force-approach-on2">1. Brute Force Approach (O(n^2)):</a></h4>
-<p>A simple brute force solution would involve checking every possible pair of numbers in the array and checking if their sum equals the target.</p>
-<p><strong>Algorithm:</strong></p>
-<ul>
-<li>Loop through all pairs of elements.</li>
-<li>If the sum of any pair equals the target, return the indices of the pair.</li>
-</ul>
-<p><strong>Time Complexity:</strong> O(n^2)</p>
+<h3 id="approaches"><a class="header" href="#approaches">Approaches</a></h3>
+<h4 id="brute-force---on2-time-and-o1-space"><a class="header" href="#brute-force---on2-time-and-o1-space">Brute Force - O(N^2) Time and O(1) Space</a></h4>
 <pre><code class="language-java">class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i &lt; nums.length; i++) {
-            for (int j = i + 1; j &lt; nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        int n = prices.length - 1;
+
+        for(int i=0; i &lt; n-1; i++) {
+            for(int j=i+1; j &lt; n; j++) {
+                int currentProfit = prices[j] - prices[i];
+                profit = Math.max(profit, currentProfit);
             }
         }
-        return new int[]{-1, -1};
+        return profit;
     }
 }
 </code></pre>
-<hr />
-<h4 id="2-optimized-approach-with-hash-map-on"><a class="header" href="#2-optimized-approach-with-hash-map-on">2. Optimized Approach with Hash Map (O(n)):</a></h4>
-<p>Using a hash map allows us to store numbers and their indices as we iterate through the array. This reduces the need to check every pair.</p>
-<p><strong>Algorithm:</strong></p>
-<ul>
-<li>Iterate through the array while storing each element and its index in a hash map.</li>
-<li>For each element, check if <code>target - element</code> exists in the hash map. If so, return the indices of both elements.</li>
-</ul>
-<p><strong>Time Complexity:</strong> O(n)<br />
-<strong>Space Complexity:</strong> O(n)</p>
+<h4 id="optimal-force---on-time-and-o1-space"><a class="header" href="#optimal-force---on-time-and-o1-space">Optimal Force - O(N) Time and O(1) Space</a></h4>
 <pre><code class="language-java">class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; nums.length; i++) {
-            int num2 = target - nums[i];
-            if (map.containsKey(num2)) {
-                return new int[]{map.get(num2), i};
-            }
-            map.put(nums[i], i);
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        int min=prices[0];
+        int len = prices.length;
+
+        for(int i=1;i&lt;len;i++){
+            min = Math.min( min, prices[i]);
+            profit=Math.max(prices[i] - min, profit);
         }
-        return new int[]{-1, -1};
-    }
-}
-</code></pre>
-<p><strong>Explanation:</strong></p>
-<ul>
-<li>We iterate through the array once.</li>
-<li>For each number, we check if the complementary number (<code>target - nums[i]</code>) has been seen before using the hash map. If it has, return the indices.</li>
-<li>If not, we store the current number and its index in the map for future reference.</li>
-</ul>
-<hr />
-<h4 id="3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on"><a class="header" href="#3-optimized-approach-with-two-pointers-only-works-if-array-is-sorted-on">3. Optimized Approach with Two Pointers (Only works if array is sorted) (O(n)):</a></h4>
-<p>This approach assumes that the array is sorted. It uses two pointers to check pairs of numbers whose sum equals the target.</p>
-<p><strong>Algorithm:</strong></p>
-<ul>
-<li>Sort the array.</li>
-<li>Initialize two pointers: one at the start of the array, the other at the end.</li>
-<li>Move the pointers inward, checking if the sum of the numbers at the two pointers is equal to the target.</li>
-</ul>
-<p><strong>Time Complexity:</strong> O(n log n) (due to sorting)<br />
-<strong>Space Complexity:</strong> O(1) (additional space)</p>
-<pre><code class="language-java">class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement)) {
-                return new int[]{map.get(complement), i};
-            }
-            map.put(nums[i], i);
-        }
-        return new int[]{-1, -1};
+
+        return profit;
     }
 }
 </code></pre>
@@ -276,11 +211,11 @@ Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../problems/18-heaps.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cretia_150/two_pointers/trapping_rain_water.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/sliding_window/longest_substring_without_repeating_characters.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -290,11 +225,11 @@ Because <code>nums[0] + nums[1] == 9</code>, we return <code>[0, 1]</code>.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../problems/18-heaps.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cretia_150/two_pointers/trapping_rain_water.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/group-anagram.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/sliding_window/longest_substring_without_repeating_characters.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

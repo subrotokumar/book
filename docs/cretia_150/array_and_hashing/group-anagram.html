@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Valid Sudoku - Book</title>
+        <title>Group Anagrams - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,102 +152,133 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="valid-sudoku-"><a class="header" href="#valid-sudoku-"><a href="https://leetcode.com/problems/valid-sudoku/description/">Valid Sudoku</a> 💛</a></h1>
-<p>Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
-<p>Each row must contain the digits 1-9 without repetition.
-Each column must contain the digits 1-9 without repetition.
-Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
-Note:</p>
-<p>A Sudoku board (partially filled) could be valid but is not necessarily solvable.
-Only the filled cells need to be validated according to the mentioned rules.</p>
-<p>Example 1:</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" alt="sudoku" /></p>
-<pre><code>Input: board = 
-[["5","3",".",".","7",".",".",".","."]
-,["6",".",".","1","9","5",".",".","."]
-,[".","9","8",".",".",".",".","6","."]
-,["8",".",".",".","6",".",".",".","3"]
-,["4",".",".","8",".","3",".",".","1"]
-,["7",".",".",".","2",".",".",".","6"]
-,[".","6",".",".",".",".","2","8","."]
-,[".",".",".","4","1","9",".",".","5"]
-,[".",".",".",".","8",".",".","7","9"]]
+                        <h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
+<p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example 1:</a></h3>
+<pre><code>Input: strs = ["eat","tea","tan","ate","nat","bat"]
 
-Output: true
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]  
 </code></pre>
-<p>Example 2:</p>
-<pre><code>Input: board = 
-[["8","3",".",".","7",".",".",".","."]
-,["6",".",".","1","9","5",".",".","."]
-,[".","9","8",".",".",".",".","6","."]
-,["8",".",".",".","6",".",".",".","3"]
-,["4",".",".","8",".","3",".",".","1"]
-,["7",".",".",".","2",".",".",".","6"]
-,[".","6",".",".",".",".","2","8","."]
-,[".",".",".","4","1","9",".",".","5"]
-,[".",".",".",".","8",".",".","7","9"]]
-
-Output: false
-Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8's in the top left 3x3 sub-box, it is invalid.
+<p>Explanation:</p>
+<p>There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.</p>
+<h3 id="example-2"><a class="header" href="#example-2">Example 2:</a></h3>
+<pre><code>Input: strs = [""]
+Output: [[""]]
 </code></pre>
-<p>Constraints:</p>
-<p>board.length == 9<br />
-board[i].length == 9<br />
-board[i][j] is a digit 1-9 or '.'.</p>
+<h3 id="example-3"><a class="header" href="#example-3">Example 3:</a></h3>
+<pre><code>Input: strs = ["a"]
+Output: [["a"]]
+</code></pre>
+<h2 id="constraints"><a class="header" href="#constraints">Constraints:</a></h2>
+<p>1 &lt;= strs.length &lt;= 104<br />
+0 &lt;= strs[i].length &lt;= 100<br />
+strs[i] consists of lowercase English letters.</p>
 <hr />
-<h3 id="approach-using-hashmap-for-sudoku-validation"><a class="header" href="#approach-using-hashmap-for-sudoku-validation">Approach: Using HashMap for Sudoku Validation</a></h3>
-<p>This approach uses a HashMap to track seen characters in rows, columns, and sub-boxes while iterating through the Sudoku board.</p>
+<h3 id="approach-1-group-anagrams-by-sorting"><a class="header" href="#approach-1-group-anagrams-by-sorting">Approach 1: Group Anagrams by Sorting</a></h3>
+<p>Given a list of strings <code>strs = ["eat", "tea", "tan", "ate", "nat", "bat"]</code>, the goal is to group the anagrams together. Here's the step-by-step approach:</p>
+<ol>
+<li>
+<p><strong>Sort Each String:</strong><br />
+For every string in the input list, sort its characters alphabetically. This ensures that anagrams will result in the same sorted string.</p>
+<p>Example:</p>
+<pre><code>strs =        ["eat", "tea", "tan", "ate", "nat", "bat"]
+sorted_strs = ["aet", "aet", "ant", "aet", "ant", "abt"]
+</code></pre>
+</li>
+<li>
+<p><strong>Group by Sorted Strings:</strong><br />
+Use a hashmap (dictionary) where the key is the sorted string, and the value is a list of strings that match that sorted string. Iterate through the <code>strs</code> list and group the original strings based on their sorted form.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × KLogK)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Sorting each string takes <strong>O(KLogK)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<h3 id="approach-2-group-anagrams-using-character-counts"><a class="header" href="#approach-2-group-anagrams-using-character-counts">Approach 2: Group Anagrams Using Character Counts</a></h3>
+<p>Instead of sorting each string, we can use the frequency of each character as the key to group anagrams. Here's how it works:</p>
+<ol>
+<li>
+<p><strong>Count Character Frequencies:</strong><br />
+For each string in the input list, create a frequency count of its characters. Use a tuple of 26 integers (for each letter 'a' to 'z') to represent the frequency.</p>
+</li>
+<li>
+<p><strong>Group by Frequency Keys:</strong><br />
+Use a hashmap (dictionary) where the key is the character frequency tuple, and the value is a list of strings that match that frequency.</p>
+<p>Result:</p>
+<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+</code></pre>
+</li>
+</ol>
+<h3 id="complexity-analysis-1"><a class="header" href="#complexity-analysis-1">Complexity Analysis</a></h3>
+<p><strong>Time Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>N is the number of strings in the input list.</li>
+<li>K is the length of the longest string.</li>
+<li>Counting characters takes <strong>O(K)</strong>, and we do this for all N strings.</li>
+</ul>
+<p><strong>Space Complexity:</strong><br />
+<strong>O(N × K)</strong>, where:</p>
+<ul>
+<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
+</ul>
+<p>This approach is often faster than sorting-based grouping for longer strings, as it avoids the overhead of sorting.</p>
 <pre><code class="language-java">class Solution {
-    public boolean isValidSudoku(char[][] board) {
-        final int N = 9;
-    
-        Map&lt;String, Set&lt;Character&gt;&gt; map = new HashMap&lt;&gt;();
-
-        for(int i = 0; i &lt; N; i++) {
-            map.put("R" + i, new HashSet&lt;&gt;()); // Row
-            map.put("C" + i, new HashSet&lt;&gt;()); // Column
-            map.put("B" + i, new HashSet&lt;&gt;()); // Box
+    private String getCharacterCountString(String str) {
+        int[] count = new int[26];
+        for (char ch : str.toCharArray()) {
+            count[ch - 'a'] = count[ch - 'a'] + 1;
         }
+        StringBuilder sb = new StringBuilder();
+        for (int item : count) {
+            sb.append("#");
+            sb.append(item);
+        }
+        return sb.toString();
+    }
 
-        for(int r = 0; r &lt; N; r++) {
-            for(int c = 0; c &lt; N; c++) {
-                char ch = board[r][c];
-                int box = r / 3 * 3 + c / 3;
+    public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) {
+        if (strs.length == 0) {
+            return new ArrayList();
+        }
+        Map&lt;String, List&lt;String&gt;&gt; ansMap = new HashMap&lt;&gt;();
 
-                if(ch == '.') {
-                    continue;
-                }
-
-                if(
-                    map.get("R" + r).contains(ch) ||
-                    map.get("C" + c).contains(ch) ||
-                    map.get("B" + box).contains(ch)
-                ) {
-                    return false;
-                }
-
-                map.get("R" + r).add(ch);
-                map.get("C" + c).add(ch);
-                map.get("B" + box).add(ch);
+        for (String str : strs) {
+            String countString = getCharacterCountString(str);
+            if (!ansMap.containsKey(countString)) {
+                ansMap.put(countString, new ArrayList());
             }
+            ansMap.get(countString).add(str);
         }
-        return true;
+
+        return new ArrayList(ansMap.values());
     }
 }
 </code></pre>
-<h4 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis:</a></h4>
-<p><strong>Time Complexity</strong>: O(N²), where N = 9 (constant board size). Iterates through each cell of the board once.</p>
-<p><strong>Space Complexity</strong>: O(N²), for storing sets in the HashMap to track characters in rows, columns, and boxes.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/product-of-array-except-self.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cretia_150/array_and_hashing/two_sum.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/longest_consecutive_sequence.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/array_and_hashing/top-k-frequent-elements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -257,11 +288,11 @@ board[i][j] is a digit 1-9 or '.'.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/product-of-array-except-self.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cretia_150/array_and_hashing/two_sum.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/longest_consecutive_sequence.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/array_and_hashing/top-k-frequent-elements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

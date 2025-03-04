@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Encode and Decode Strings - Book</title>
+        <title>Longest Substring Without Repeating Characters - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,57 +152,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="encode-and-decode-strings-"><a class="header" href="#encode-and-decode-strings-"><a href="https://www.geeksforgeeks.org/problems/encode-and-decode-strings/1">Encode and Decode Strings</a> 💛</a></h1>
-<p>Given an array of strings s[], you are required to create an algorithm in the encode() function that can convert the given strings into a single encoded string, which can be transmitted over the network and then decoded back into the original array of strings. The decoding will happen in the decode() function.</p>
-<p>You need to implement two functions:</p>
-<ol>
-<li>encode(): This takes an array of strings s[] and encodes it into a single string.</li>
-<li>decode(): This takes the encoded string as input and returns an array of strings containing the original array as given in the encode method.</li>
-</ol>
-<p>Note: You are not allowed to use any inbuilt serialize method.</p>
-<p>Example 1:</p>
-<pre><code>Input: s = ["Hello","World"]
-Output: ["Hello","World"]
-</code></pre>
-<p>Explanation: The encode() function will have the str as input, it will be encoded by one machine. Then another machine will receive the encoded string as the input parameter and then will decode it to its original form.</p>
-<p>Example 2:</p>
-<pre><code>Input: s = ["abc","!@"]
-Output: ["abc","!@"]
-</code></pre>
-<p>Explanation: The encode() function will have the str as input, here there are two strings, one is "abc" and the other one has some special characters. It will be encoded by one machine. Then another machine will receive the encoded string as the input parameter and then will decode it to its original form.</p>
-<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
-<p>1&lt;=s.size()&lt;=100<br />
-1&lt;=s[i].size()&lt;=100<br />
-s[i] contains any possible characters out of the 256 ASCII characters.</p>
-<hr />
-<h3 id="solution"><a class="header" href="#solution">Solution</a></h3>
-<pre><code class="language-java">class Solution {
-
-    public String encode(String s[]) {
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i&lt;s.length-1;i++) {
-            sb.append(s[i]);
-            sb.append('#');
-        }
-        sb.append(s[s.length-1]);
-        return sb.toString();
-    }
-
-    public String[] decode(String s) {
-        return s.split("#");
-    }
-}
-</code></pre>
+                        <h1 id="longest-substring-without-repeating-characters-"><a class="header" href="#longest-substring-without-repeating-characters-"><a href="">Longest Substring Without Repeating Characters</a> 💛</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cretia_150/sliding_window/best_time_to_buy_and_sell_stock.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/product-of-array-except-self.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/sliding_window/longest_repeating_character_replacement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -212,11 +172,11 @@ s[i] contains any possible characters out of the 256 ASCII characters.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cretia_150/sliding_window/best_time_to_buy_and_sell_stock.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/product-of-array-except-self.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/sliding_window/longest_repeating_character_replacement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

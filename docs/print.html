@@ -1955,10 +1955,379 @@ An empty string reads the same forward and backward, so it is a palindrome.</p>
 <li><strong>Mixed cases</strong>: The function converts all characters to lowercase before comparing them to ensure case insensitivity.</li>
 </ol>
 <p>This solution ensures that we check the string efficiently and meet the problem's constraints.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="two-sum-ii-input-array-is-sorted-"><a class="header" href="#two-sum-ii-input-array-is-sorted-"><a href="neetcode_150/two_pointers/">Two Sum II Input Array Is Sorted</a> 💛</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="3sum-"><a class="header" href="#3sum-"><a href="neetcode_150/two_pointers/">3Sum</a> 💛</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="container-with-most-water-"><a class="header" href="#container-with-most-water-"><a href="neetcode_150/two_pointers/">Container With Most Water</a> 💛</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="trapping-rain-water-"><a class="header" href="#trapping-rain-water-"><a href="neetcode_150/two_pointers/">Trapping Rain Water</a> ❤️</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="two-sum-ii-input-array-is-sorted-"><a class="header" href="#two-sum-ii-input-array-is-sorted-"><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/">Two Sum II Input Array Is Sorted</a> 💛</a></h1>
+<p>Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 &lt;= index1 &lt; index2 &lt;= numbers.length.</p>
+<p>Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.</p>
+<p>The tests are generated such that there is exactly one solution. You may not use the same element twice.</p>
+<p>Your solution must use only constant extra space.</p>
+<h4 id="example-1-3"><a class="header" href="#example-1-3">Example 1:</a></h4>
+<pre><code>Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+</code></pre>
+<h4 id="example-2-3"><a class="header" href="#example-2-3">Example 2:</a></h4>
+<pre><code>Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+</code></pre>
+<h4 id="example-3-3"><a class="header" href="#example-3-3">Example 3:</a></h4>
+<pre><code>Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+</code></pre>
+<h3 id="constraints-7"><a class="header" href="#constraints-7">Constraints:</a></h3>
+<ul>
+<li>2 &lt;= numbers.length &lt;= 3 * 104</li>
+<li>-1000 &lt;= numbers[i] &lt;= 1000<br />
+numbers is sorted in non-decreasing order.</li>
+<li>-1000 &lt;= target &lt;= 1000<br />
+The tests are generated such that there is exactly one solution.</li>
+</ul>
+<hr />
+<h3 id="approaches-1"><a class="header" href="#approaches-1">Approaches:</a></h3>
+<h4 id="1-using-binary-search-on2"><a class="header" href="#1-using-binary-search-on2">1. Using Binary Search (O(n^2)):</a></h4>
+<pre><code class="language-java">class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int i = 0;
+        int j = numbers.length-1;
+
+        while(i&lt;j){
+            int sum = numbers[i] + numbers[j];
+            if(sum &lt; target) {
+                i++;
+            } else if(sum&gt;target) {
+                j--;
+            } else {
+                return new int[]{i+1, j+1};
+            }
+        }
+        return null;
+    }
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> O(n)<br />
+<strong>Space Complexity:</strong> O(1)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3sum-"><a class="header" href="#3sum-"><a href="https://leetcode.com/problems/3sum/description/">3Sum</a> 💛</a></h1>
+<p>Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.</p>
+<p>Notice that the solution set must not contain duplicate triplets.</p>
+<h4 id="example-1-4"><a class="header" href="#example-1-4">Example 1:</a></h4>
+<pre><code>Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+Explanation:
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+</code></pre>
+<h4 id="example-2-4"><a class="header" href="#example-2-4">Example 2:</a></h4>
+<pre><code>Input: nums = [0,1,1]
+Output: []
+Explanation: The only possible triplet does not sum up to 0.
+</code></pre>
+<h4 id="example-3-4"><a class="header" href="#example-3-4">Example 3:</a></h4>
+<pre><code>Input: nums = [0,0,0]
+Output: [[0,0,0]]
+Explanation: The only possible triplet sums up to 0.
+</code></pre>
+<h3 id="constraints-8"><a class="header" href="#constraints-8">Constraints:</a></h3>
+<ul>
+<li>3 &lt;= nums.length &lt;= 3000</li>
+<li>-105 &lt;= nums[i] &lt;= 105</li>
+</ul>
+<hr />
+<h3 id="approaches-2"><a class="header" href="#approaches-2">Approaches:</a></h3>
+<h4 id="naive-approach-generating-all-triplets--on3-time-and-o1-space"><a class="header" href="#naive-approach-generating-all-triplets--on3-time-and-o1-space">[Naive Approach] Generating All Triplets – O(n^3) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; threeSumBruteForce(int[] nums) {
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        int n = nums.length;
+
+        for (int i = 0; i &lt; n - 2; i++) {
+            for (int j = i + 1; j &lt; n - 1; j++) {
+                for (int k = j + 1; k &lt; n; k++) {
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        List&lt;Integer&gt; triplet = Arrays.asList(nums[i], nums[j], nums[k]);
+                        Collections.sort(triplet);
+                        if (!res.contains(triplet)) {
+                            res.add(triplet);
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> O(n^2)<br />
+<strong>Space Complexity:</strong> O(1)</p>
+<h4 id="hashset---on2-time-and-on-space"><a class="header" href="#hashset---on2-time-and-on-space">HashSet - O(n^2) Time and O(n) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; threeSumHashSet(int[] nums) {
+        Set&lt;List&lt;Integer&gt;&gt; result = new HashSet&lt;&gt;();
+        Arrays.sort(nums);
+
+        for (int i = 0; i &lt; nums.length - 2; i++) {
+            int target = -nums[i];
+            Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+            for (int j = i + 1; j &lt; nums.length; j++) {
+                int complement = target - nums[j];
+                if (seen.contains(complement)) {
+                    result.add(Arrays.asList(nums[i], nums[j], complement));
+                }
+                seen.add(nums[j]);
+            }
+        }
+        return new ArrayList&lt;&gt;(result);
+    }
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> O(n^2)<br />
+<strong>Space Complexity:</strong> O(n)</p>
+<h4 id="two-pointer"><a class="header" href="#two-pointer">Two Pointer:</a></h4>
+<pre><code class="language-java">class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+
+        Arrays.sort(nums);
+
+        for(int index = 0; index &lt; nums.length-2; index++) {
+            if(index == 0 || (index &gt; 0 &amp;&amp; nums[index] != nums[index-1])) {
+                twoSumII(index, nums, result);
+            }
+        }
+        return result;
+    }
+
+    public void twoSumII(int index, int[] nums, List&lt;List&lt;Integer&gt;&gt; result) {
+        int sum = -nums[index];
+
+        int start = index+1;
+        int end = nums.length - 1;
+
+        while(start &lt; end) {
+            int num1 = nums[start], num2 = nums[end];
+
+            if(num1 + num2 &lt; sum) {
+                start++;
+            } else if(num1 + num2 &gt; sum) {
+                end--;
+            } else {
+                result.add(Arrays.asList(nums[index], num1, num2));
+                start++;
+                end--;
+
+                while (start &lt; end &amp;&amp; nums[start] == nums[start - 1]) {
+                    start++;
+                }
+                while (start &lt; end &amp;&amp; nums[end] == nums[end + 1]) {
+                    end--;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> O(NLogN + N2)<br />
+<strong>Space Complexity:</strong> O(1)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="container-with-most-water-"><a class="header" href="#container-with-most-water-"><a href="https://leetcode.com/problems/container-with-most-water/description/">Container With Most Water</a> 💛</a></h1>
+<p>You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).</p>
+<p>Find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+<p>Return the maximum amount of water a container can store.</p>
+<p>Notice that you may not slant the container.</p>
+<p>Example 1:</p>
+<p><img src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg" alt="" /></p>
+<pre><code>Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: height = [1,1]
+Output: 1
+</code></pre>
+<h3 id="constraints-9"><a class="header" href="#constraints-9">Constraints:</a></h3>
+<ul>
+<li>n == height.length</li>
+<li>2 &lt;= n &lt;= 105</li>
+<li>0 &lt;= height[i] &lt;= 104</li>
+</ul>
+<hr />
+<h3 id="approaches-3"><a class="header" href="#approaches-3">Approaches</a></h3>
+<h4 id="brute-force---on2-time-and-o1-space"><a class="header" href="#brute-force---on2-time-and-o1-space">Brute Force - O(N^2) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int n = height.length;
+
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                int area = (j - i) * Math.min(height[i], height[j]);
+                maxArea = Math.max(maxArea, area);
+            }
+        }
+        return maxArea;
+    }
+}
+</code></pre>
+<h4 id="optimal-solution---on-time-and-o1-space"><a class="header" href="#optimal-solution---on-time-and-o1-space">Optimal Solution - O(N) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxArea(int[] height) {
+        int start = 0;
+        int end = height.length -1;
+        int maxArea = 0;
+        while(start &lt; end) {
+            int area = (end-start) * Math.min(height[start], height[end]);
+
+            maxArea = Math.max(area, maxArea);
+
+            if(height[start] &lt;= height[end]) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return maxArea;
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trapping-rain-water-"><a class="header" href="#trapping-rain-water-"><a href="https://leetcode.com/problems/trapping-rain-water/">Trapping Rain Water</a> ❤️</a></h1>
+<p>Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.</p>
+<p>Example 1:</p>
+<img src="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png">
+<pre><code>Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+Output: 6
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: height = [4,2,0,3,2,5]
+Output: 9
+</code></pre>
+<h3 id="constraints-10"><a class="header" href="#constraints-10">Constraints:</a></h3>
+<ul>
+<li>n == height.length</li>
+<li>1 &lt;= n &lt;= 2 * 104</li>
+<li>0 &lt;= height[i] &lt;= 105</li>
+</ul>
+<hr />
+<h3 id="approaches-4"><a class="header" href="#approaches-4">Approaches:</a></h3>
+<h4 id="brute-force"><a class="header" href="#brute-force">Brute Force</a></h4>
+<pre><code class="language-java">
+</code></pre>
+<h4 id="effective-solution---on-time-and-on-space"><a class="header" href="#effective-solution---on-time-and-on-space">Effective Solution - O(N) Time and O(N) Space</a></h4>
+<pre><code class="language-java">public int trap(int[] height) {
+    int total = 0;
+    int n = height.length;
+    int[] left = new int[n];
+    int[] right = new int[n];
+    left[0] = height[0];
+    right[n - 1] = height[n - 1];
+    for (int i = n - 2; i &gt; 0; i--) {
+        right[i] = Math.max(right[i + 1], height[i]);
+    }
+    for (int i = 1; i &lt; n; i++) {
+        left[i] = Math.max(left[i - 1], height[i]);
+    }
+    for (int i = 1; i &lt; n - 1; i++) {
+        int x = Math.min(left[i], right[i]) - height[i];
+        if (x &gt; 0) {
+            total += x;
+        }
+    }
+    return total;
+}
+</code></pre>
+<h4 id="optimal-solution---on-time-and-on-space"><a class="header" href="#optimal-solution---on-time-and-on-space">Optimal Solution - O(N) Time and O(N) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int trap(int height[]) {
+        int n = height.length;
+
+        int left = 0;
+        int right = n-1;
+
+        int leftMax = height[left];
+        int rightMax = height[right];
+
+        int total = 0;
+
+        while(left &lt; right) {
+            if (height[left] &lt; height[right]) {
+                leftMax = Math.max(leftMax, height[left]);
+                if (leftMax - height[left] &gt; 0) {
+                    total = total + leftMax - height[left];
+                }
+                left++;
+            } else {
+                rightMax = Math.max(rightMax, height[right]);
+                if (rightMax - height[right] &gt; 0) {
+                    total = total + rightMax - height[right];
+                }
+                right--;
+            }
+        }
+        return total;
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="best-time-to-buy-and-sell-stock-"><a class="header" href="#best-time-to-buy-and-sell-stock-"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/">Best Time to Buy And Sell Stock</a> 💚</a></h1>
+<p>You are given an array prices where prices[i] is the price of a given stock on the ith day.</p>
+<p>You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.</p>
+<p>Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.</p>
+<p>Example 1:</p>
+<pre><code>Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+</code></pre>
+<h4 id="constraints-11"><a class="header" href="#constraints-11">Constraints:</a></h4>
+<ul>
+<li>1 &lt;= prices.length &lt;= 105</li>
+<li>0 &lt;= prices[i] &lt;= 104</li>
+</ul>
+<hr />
+<h3 id="approaches-5"><a class="header" href="#approaches-5">Approaches</a></h3>
+<h4 id="brute-force---on2-time-and-o1-space-1"><a class="header" href="#brute-force---on2-time-and-o1-space-1">Brute Force - O(N^2) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        int n = prices.length - 1;
+
+        for(int i=0; i &lt; n-1; i++) {
+            for(int j=i+1; j &lt; n; j++) {
+                int currentProfit = prices[j] - prices[i];
+                profit = Math.max(profit, currentProfit);
+            }
+        }
+        return profit;
+    }
+}
+</code></pre>
+<h4 id="optimal-force---on-time-and-o1-space"><a class="header" href="#optimal-force---on-time-and-o1-space">Optimal Force - O(N) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        int min=prices[0];
+        int len = prices.length;
+
+        for(int i=1;i&lt;len;i++){
+            min = Math.min( min, prices[i]);
+            profit=Math.max(prices[i] - min, profit);
+        }
+
+        return profit;
+    }
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="longest-substring-without-repeating-characters-"><a class="header" href="#longest-substring-without-repeating-characters-"><a href="cretia_150/sliding_window/">Longest Substring Without Repeating Characters</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="longest-repeating-character-replacement-"><a class="header" href="#longest-repeating-character-replacement-"><a href="cretia_150/sliding_window/">Longest Repeating Character Replacement</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="permutation-in-string-"><a class="header" href="#permutation-in-string-"><a href="cretia_150/sliding_window/">Permutation In String</a> 💛</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="minimum-window-substring-"><a class="header" href="#minimum-window-substring-"><a href="cretia_150/sliding_window/">Minimum Window Substring</a> ❤️</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sliding-window-maximum-"><a class="header" href="#sliding-window-maximum-"><a href="cretia_150/sliding_window/">Sliding Window Maximum</a> ❤️</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="greedy-algorithm"><a class="header" href="#greedy-algorithm">Greedy Algorithm</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="shortest-job-first-or-sjf-cpu-scheduling"><a class="header" href="#shortest-job-first-or-sjf-cpu-scheduling">Shortest Job First (or SJF) CPU Scheduling</a></h1>
 <p>The shortest job first (SJF) or shortest job next, is a scheduling policy that selects the waiting process with the smallest execution time to execute next.</p>

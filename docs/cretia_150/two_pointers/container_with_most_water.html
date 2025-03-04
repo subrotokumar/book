@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Group Anagrams - Book</title>
+        <title>Container With Most Water - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -152,120 +152,63 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="group-anagrams-"><a class="header" href="#group-anagrams-"><a href="https://leetcode.com/problems/group-anagrams/description/">Group Anagrams</a> 💛</a></h1>
-<p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
-<h3 id="example-1"><a class="header" href="#example-1">Example 1:</a></h3>
-<pre><code>Input: strs = ["eat","tea","tan","ate","nat","bat"]
-
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]  
+                        <h1 id="container-with-most-water-"><a class="header" href="#container-with-most-water-"><a href="https://leetcode.com/problems/container-with-most-water/description/">Container With Most Water</a> 💛</a></h1>
+<p>You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).</p>
+<p>Find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+<p>Return the maximum amount of water a container can store.</p>
+<p>Notice that you may not slant the container.</p>
+<p>Example 1:</p>
+<p><img src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg" alt="" /></p>
+<pre><code>Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
 </code></pre>
-<p>Explanation:</p>
-<p>There is no string in strs that can be rearranged to form "bat".
-The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
-The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.</p>
-<h3 id="example-2"><a class="header" href="#example-2">Example 2:</a></h3>
-<pre><code>Input: strs = [""]
-Output: [[""]]
+<p>Example 2:</p>
+<pre><code>Input: height = [1,1]
+Output: 1
 </code></pre>
-<h3 id="example-3"><a class="header" href="#example-3">Example 3:</a></h3>
-<pre><code>Input: strs = ["a"]
-Output: [["a"]]
-</code></pre>
-<h2 id="constraints"><a class="header" href="#constraints">Constraints:</a></h2>
-<p>1 &lt;= strs.length &lt;= 104<br />
-0 &lt;= strs[i].length &lt;= 100<br />
-strs[i] consists of lowercase English letters.</p>
+<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
+<ul>
+<li>n == height.length</li>
+<li>2 &lt;= n &lt;= 105</li>
+<li>0 &lt;= height[i] &lt;= 104</li>
+</ul>
 <hr />
-<h3 id="approach-1-group-anagrams-by-sorting"><a class="header" href="#approach-1-group-anagrams-by-sorting">Approach 1: Group Anagrams by Sorting</a></h3>
-<p>Given a list of strings <code>strs = ["eat", "tea", "tan", "ate", "nat", "bat"]</code>, the goal is to group the anagrams together. Here's the step-by-step approach:</p>
-<ol>
-<li>
-<p><strong>Sort Each String:</strong><br />
-For every string in the input list, sort its characters alphabetically. This ensures that anagrams will result in the same sorted string.</p>
-<p>Example:</p>
-<pre><code>strs =        ["eat", "tea", "tan", "ate", "nat", "bat"]
-sorted_strs = ["aet", "aet", "ant", "aet", "ant", "abt"]
-</code></pre>
-</li>
-<li>
-<p><strong>Group by Sorted Strings:</strong><br />
-Use a hashmap (dictionary) where the key is the sorted string, and the value is a list of strings that match that sorted string. Iterate through the <code>strs</code> list and group the original strings based on their sorted form.</p>
-<p>Result:</p>
-<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-</code></pre>
-</li>
-</ol>
-<h3 id="complexity-analysis"><a class="header" href="#complexity-analysis">Complexity Analysis</a></h3>
-<p><strong>Time Complexity:</strong><br />
-<strong>O(N × KLogK)</strong>, where:</p>
-<ul>
-<li>N is the number of strings in the input list.</li>
-<li>K is the length of the longest string.</li>
-<li>Sorting each string takes <strong>O(KLogK)</strong>, and we do this for all N strings.</li>
-</ul>
-<p><strong>Space Complexity:</strong><br />
-<strong>O(N × K)</strong>, where:</p>
-<ul>
-<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
-</ul>
-<h3 id="approach-2-group-anagrams-using-character-counts"><a class="header" href="#approach-2-group-anagrams-using-character-counts">Approach 2: Group Anagrams Using Character Counts</a></h3>
-<p>Instead of sorting each string, we can use the frequency of each character as the key to group anagrams. Here's how it works:</p>
-<ol>
-<li>
-<p><strong>Count Character Frequencies:</strong><br />
-For each string in the input list, create a frequency count of its characters. Use a tuple of 26 integers (for each letter 'a' to 'z') to represent the frequency.</p>
-</li>
-<li>
-<p><strong>Group by Frequency Keys:</strong><br />
-Use a hashmap (dictionary) where the key is the character frequency tuple, and the value is a list of strings that match that frequency.</p>
-<p>Result:</p>
-<pre><code>result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-</code></pre>
-</li>
-</ol>
-<h3 id="complexity-analysis-1"><a class="header" href="#complexity-analysis-1">Complexity Analysis</a></h3>
-<p><strong>Time Complexity:</strong><br />
-<strong>O(N × K)</strong>, where:</p>
-<ul>
-<li>N is the number of strings in the input list.</li>
-<li>K is the length of the longest string.</li>
-<li>Counting characters takes <strong>O(K)</strong>, and we do this for all N strings.</li>
-</ul>
-<p><strong>Space Complexity:</strong><br />
-<strong>O(N × K)</strong>, where:</p>
-<ul>
-<li>The hashmap stores all the grouped anagrams, which requires space proportional to the total number of characters across all strings (N × K).</li>
-</ul>
-<p>This approach is often faster than sorting-based grouping for longer strings, as it avoids the overhead of sorting.</p>
+<h3 id="approaches"><a class="header" href="#approaches">Approaches</a></h3>
+<h4 id="brute-force---on2-time-and-o1-space"><a class="header" href="#brute-force---on2-time-and-o1-space">Brute Force - O(N^2) Time and O(1) Space</a></h4>
 <pre><code class="language-java">class Solution {
-    private String getCharacterCountString(String str) {
-        int[] count = new int[26];
-        for (char ch : str.toCharArray()) {
-            count[ch - 'a'] = count[ch - 'a'] + 1;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int item : count) {
-            sb.append("#");
-            sb.append(item);
-        }
-        return sb.toString();
-    }
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int n = height.length;
 
-    public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) {
-        if (strs.length == 0) {
-            return new ArrayList();
-        }
-        Map&lt;String, List&lt;String&gt;&gt; ansMap = new HashMap&lt;&gt;();
-
-        for (String str : strs) {
-            String countString = getCharacterCountString(str);
-            if (!ansMap.containsKey(countString)) {
-                ansMap.put(countString, new ArrayList());
+        for (int i = 0; i &lt; n - 1; i++) {
+            for (int j = i + 1; j &lt; n; j++) {
+                int area = (j - i) * Math.min(height[i], height[j]);
+                maxArea = Math.max(maxArea, area);
             }
-            ansMap.get(countString).add(str);
         }
+        return maxArea;
+    }
+}
+</code></pre>
+<h4 id="optimal-solution---on-time-and-o1-space"><a class="header" href="#optimal-solution---on-time-and-o1-space">Optimal Solution - O(N) Time and O(1) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int maxArea(int[] height) {
+        int start = 0;
+        int end = height.length -1;
+        int maxArea = 0;
+        while(start &lt; end) {
+            int area = (end-start) * Math.min(height[start], height[end]);
 
-        return new ArrayList(ansMap.values());
+            maxArea = Math.max(area, maxArea);
+
+            if(height[start] &lt;= height[end]) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return maxArea;
     }
 }
 </code></pre>
@@ -274,11 +217,11 @@ Use a hashmap (dictionary) where the key is the character frequency tuple, and t
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../../neetcode_150/array_and_hashing/two_sum.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cretia_150/two_pointers/3sum.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/two_pointers/trapping_rain_water.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -288,11 +231,11 @@ Use a hashmap (dictionary) where the key is the character frequency tuple, and t
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../../neetcode_150/array_and_hashing/two_sum.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cretia_150/two_pointers/3sum.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../neetcode_150/array_and_hashing/top-k-frequent-elements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/two_pointers/trapping_rain_water.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

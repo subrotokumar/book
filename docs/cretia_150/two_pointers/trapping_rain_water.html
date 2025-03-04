@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Heaps - Book</title>
+        <title>Trapping Rain Water - Book</title>
 
 
         <!-- Custom HTML head -->
@@ -12,32 +12,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc.js"></script>
+        <script src="../../toc.js"></script>
     </head>
     <body>
     <div id="body-container">
@@ -89,7 +89,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -123,7 +123,7 @@
                     <h1 class="menu-title">Book</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -152,16 +152,94 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="trapping-rain-water-"><a class="header" href="#trapping-rain-water-"><a href="https://leetcode.com/problems/trapping-rain-water/">Trapping Rain Water</a> ❤️</a></h1>
+<p>Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.</p>
+<p>Example 1:</p>
+<img src="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png">
+<pre><code>Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+Output: 6
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+</code></pre>
+<p>Example 2:</p>
+<pre><code>Input: height = [4,2,0,3,2,5]
+Output: 9
+</code></pre>
+<h3 id="constraints"><a class="header" href="#constraints">Constraints:</a></h3>
+<ul>
+<li>n == height.length</li>
+<li>1 &lt;= n &lt;= 2 * 104</li>
+<li>0 &lt;= height[i] &lt;= 105</li>
+</ul>
+<hr />
+<h3 id="approaches"><a class="header" href="#approaches">Approaches:</a></h3>
+<h4 id="brute-force"><a class="header" href="#brute-force">Brute Force</a></h4>
+<pre><code class="language-java">
+</code></pre>
+<h4 id="effective-solution---on-time-and-on-space"><a class="header" href="#effective-solution---on-time-and-on-space">Effective Solution - O(N) Time and O(N) Space</a></h4>
+<pre><code class="language-java">public int trap(int[] height) {
+    int total = 0;
+    int n = height.length;
+    int[] left = new int[n];
+    int[] right = new int[n];
+    left[0] = height[0];
+    right[n - 1] = height[n - 1];
+    for (int i = n - 2; i &gt; 0; i--) {
+        right[i] = Math.max(right[i + 1], height[i]);
+    }
+    for (int i = 1; i &lt; n; i++) {
+        left[i] = Math.max(left[i - 1], height[i]);
+    }
+    for (int i = 1; i &lt; n - 1; i++) {
+        int x = Math.min(left[i], right[i]) - height[i];
+        if (x &gt; 0) {
+            total += x;
+        }
+    }
+    return total;
+}
+</code></pre>
+<h4 id="optimal-solution---on-time-and-on-space"><a class="header" href="#optimal-solution---on-time-and-on-space">Optimal Solution - O(N) Time and O(N) Space</a></h4>
+<pre><code class="language-java">class Solution {
+    public int trap(int height[]) {
+        int n = height.length;
+
+        int left = 0;
+        int right = n-1;
+
+        int leftMax = height[left];
+        int rightMax = height[right];
+
+        int total = 0;
+
+        while(left &lt; right) {
+            if (height[left] &lt; height[right]) {
+                leftMax = Math.max(leftMax, height[left]);
+                if (leftMax - height[left] &gt; 0) {
+                    total = total + leftMax - height[left];
+                }
+                left++;
+            } else {
+                rightMax = Math.max(rightMax, height[right]);
+                if (rightMax - height[right] &gt; 0) {
+                    total = total + rightMax - height[right];
+                }
+                right--;
+            }
+        }
+        return total;
+    }
+}
+</code></pre>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../problems/17-trees.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../../cretia_150/two_pointers/container_with_most_water.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../cretia_150/array_and_hashing/two_sum.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../cretia_150/sliding_window/best_time_to_buy_and_sell_stock.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -171,11 +249,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../problems/17-trees.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../../cretia_150/two_pointers/container_with_most_water.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../cretia_150/array_and_hashing/two_sum.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../cretia_150/sliding_window/best_time_to_buy_and_sell_stock.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -190,17 +268,17 @@
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../mermaid.min.js"></script>
-        <script src="../mermaid-init.js"></script>
+        <script src="../../mermaid.min.js"></script>
+        <script src="../../mermaid-init.js"></script>
 
 
     </div>
